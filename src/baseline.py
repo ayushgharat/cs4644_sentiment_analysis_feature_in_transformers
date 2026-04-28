@@ -16,6 +16,8 @@ from sklearn.metrics import (
     confusion_matrix,
     f1_score,
 )
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MaxAbsScaler
 
 from src.data import load_amazon_reviews
 
@@ -63,11 +65,16 @@ def run_baseline(
     # ------------------------------------------------------------------
     print("Training Logistic Regression…")
     t2 = time.time()
-    clf = LogisticRegression(
-        max_iter=1000,
-        C=1.0,
-        solver="lbfgs",
-    )
+    clf = Pipeline([
+        ("scaler", MaxAbsScaler()),
+        ("logreg", LogisticRegression(
+            max_iter=5000,
+            C=1.0,
+            solver="saga",
+            n_jobs=-1,
+            random_state=42,
+        )),
+    ])
     clf.fit(X_train_tfidf, y_train)
     print(f"  done  ({time.time()-t2:.1f}s)")
 
@@ -84,7 +91,7 @@ def run_baseline(
     # Top features by LR coefficient (positive class = label 1 = positive)
     # ------------------------------------------------------------------
     feature_names = np.array(vectorizer.get_feature_names_out())
-    coefs = clf.coef_[0]                          # shape: (n_features,)
+    coefs = clf.named_steps["logreg"].coef_[0]     # shape: (n_features,)
     top_n = 20
     top_pos_idx = np.argsort(coefs)[-top_n:][::-1]
     top_neg_idx = np.argsort(coefs)[:top_n]
@@ -114,7 +121,7 @@ def run_baseline(
         print(f"    {r['feature']:<30s}  {r['coefficient']:+.4f}")
 
     results = {
-        "model": "TF-IDF + Logistic Regression",
+        "model": "TF-IDF + Logistic Regression (saga)",
         "num_train": len(train_samples),
         "num_test": len(test_samples),
         "tfidf_vocab_size": len(vectorizer.vocabulary_),

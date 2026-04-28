@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import heapq
 import json
 import os
 import sys
@@ -110,15 +111,19 @@ def pooled_sae_latents_for_samples(
     max_seq_len: int,
     batch_size: int,
     device: torch.device,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Returns:
-      z_mean: (N, d_hidden) pooled by token mean
-      z_max : (N, d_hidden) pooled by token max
+      z_mean: (N, d_hidden) SAE latents pooled by token mean
+      z_max : (N, d_hidden) SAE latents pooled by token max
+      h_mean: (N, d_model)  raw transformer activations pooled by token mean
+      h_max : (N, d_model)  raw transformer activations pooled by token max
       y     : (N,)
     """
     z_mean_all: list[np.ndarray] = []
     z_max_all: list[np.ndarray] = []
+    h_mean_all: list[np.ndarray] = []
+    h_max_all: list[np.ndarray] = []
     y_all: list[int] = []
 
     pad_id = 0
@@ -147,20 +152,30 @@ def pooled_sae_latents_for_samples(
         # Mean pool over valid tokens.
         denom = valid_mask_f.sum(dim=1).clamp(min=1.0)
         z_mean = (z_tokens * valid_mask_f).sum(dim=1) / denom
+        h_mean = (acts * valid_mask_f).sum(dim=1) / denom
 
         # Max pool over valid tokens.
-        neg_inf = torch.full_like(z_tokens, float("-inf"))
-        z_tokens_masked = torch.where(valid_mask.unsqueeze(-1), z_tokens, neg_inf)
+        neg_inf_z = torch.full_like(z_tokens, float("-inf"))
+        z_tokens_masked = torch.where(valid_mask.unsqueeze(-1), z_tokens, neg_inf_z)
         z_max = z_tokens_masked.max(dim=1).values
         z_max = torch.where(torch.isfinite(z_max), z_max, torch.zeros_like(z_max))
 
+        neg_inf_h = torch.full_like(acts, float("-inf"))
+        acts_masked = torch.where(valid_mask.unsqueeze(-1), acts, neg_inf_h)
+        h_max = acts_masked.max(dim=1).values
+        h_max = torch.where(torch.isfinite(h_max), h_max, torch.zeros_like(h_max))
+
         z_mean_all.append(z_mean.cpu().numpy().astype(np.float32))
         z_max_all.append(z_max.cpu().numpy().astype(np.float32))
+        h_mean_all.append(h_mean.cpu().numpy().astype(np.float32))
+        h_max_all.append(h_max.cpu().numpy().astype(np.float32))
         y_all.extend(labels)
 
     return (
         np.concatenate(z_mean_all, axis=0),
         np.concatenate(z_max_all, axis=0),
+        np.concatenate(h_mean_all, axis=0),
+        np.concatenate(h_max_all, axis=0),
         np.asarray(y_all, dtype=np.int64),
     )
 
@@ -244,6 +259,152 @@ def train_probe(z_train: np.ndarray, y_train: np.ndarray, z_test: np.ndarray, y_
     }
 
 
+@torch.no_grad()
+def find_top_activating_examples(
+    feature_indices: list[int],
+    encoded_samples: list[tuple[list[int], int]],
+    transformer: TinyTransformer,
+    sae: TopKSparseAutoencoder,
+    layer_idx: int,
+    max_seq_len: int,
+    device: torch.device,
+    tokenizer: tiktoken.Encoding,
+    n_examples: int = 10,
+    context_window: int = 8,
+    max_scan: int = 5000,
+) -> dict[int, list[dict]]:
+    """Single pass over samples collecting top activating examples for each feature."""
+    heaps: dict[int, list] = {fi: [] for fi in feature_indices}
+    samples_to_scan = encoded_samples[:max_scan]
+
+    for ids, label in samples_to_scan:
+        n = min(len(ids), max_seq_len)
+        x = torch.tensor(ids[:n], dtype=torch.long, device=device).unsqueeze(0)
+
+        acts = transformer.get_layer_activations(x, layer_idx)       # (1, n, d_model)
+        acts_centered = acts - sae.decoder.bias.view(1, 1, -1)
+        z = sae.encode(acts_centered)[0]                              # (n, d_hidden)
+
+        for fi in feature_indices:
+            feat_acts = z[:, fi]
+            max_val, max_tok = feat_acts.max(dim=0)
+            max_val = max_val.item()
+            max_tok = max_tok.item()
+
+            if max_val <= 0:
+                continue
+
+            start = max(0, max_tok - context_window)
+            end = min(n, max_tok + context_window + 1)
+            entry = {
+                "activation_value": max_val,
+                "sentiment": "positive" if label == 1 else "negative",
+                "peak_token": tokenizer.decode([ids[max_tok]]),
+                "context": tokenizer.decode(ids[start:end]),
+            }
+
+            heap = heaps[fi]
+            if len(heap) < n_examples:
+                heapq.heappush(heap, (max_val, entry))
+            elif max_val > heap[0][0]:
+                heapq.heapreplace(heap, (max_val, entry))
+
+    return {
+        fi: [e for _, e in sorted(heaps[fi], key=lambda t: -t[0])]
+        for fi in feature_indices
+    }
+
+
+def h1_concentration_analysis(delta: np.ndarray, target_fraction: float = 0.80) -> dict:
+    """
+    H1: does ≤5% of features account for ≥80% of total |Δ| polarity signal?
+    Returns the concentration curve and whether H1 is supported.
+    """
+    abs_delta = np.abs(delta)
+    total = abs_delta.sum()
+    if total == 0:
+        return {"h1_supported": False, "error": "all deltas are zero"}
+
+    sorted_desc = np.sort(abs_delta)[::-1]
+    cumsum = np.cumsum(sorted_desc) / total
+
+    n_features_needed = int(np.searchsorted(cumsum, target_fraction)) + 1
+    fraction_of_features = n_features_needed / len(delta)
+
+    # Sample curve sparsely for storage (dense at low counts, sparse at high)
+    n = len(delta)
+    sample_points = np.unique(np.concatenate([
+        np.arange(1, min(201, n + 1)),
+        np.linspace(200, n, 100).astype(int),
+    ]))
+    curve = [
+        {"n_features": int(k), "cumulative_signal_fraction": float(cumsum[k - 1])}
+        for k in sample_points if k <= n
+    ]
+
+    return {
+        "total_features": int(n),
+        "target_fraction": float(target_fraction),
+        "features_needed": int(n_features_needed),
+        "fraction_of_features_needed": float(fraction_of_features),
+        "h1_threshold_pct": 5.0,
+        "h1_supported": bool(fraction_of_features <= 0.05),
+        "concentration_curve": curve,
+    }
+
+
+def h3_sparse_vs_dense(
+    z_train: np.ndarray,
+    z_test: np.ndarray,
+    h_train: np.ndarray,
+    h_test: np.ndarray,
+    y_train: np.ndarray,
+    y_test: np.ndarray,
+    delta_train: np.ndarray,
+    m_values: list[int] | None = None,
+    n_random_seeds: int = 5,
+) -> dict:
+    """
+    H3: probe on top-m sparse features (by |Δ| on train split) vs random
+    m-dim projection of raw transformer activations.
+    """
+    if m_values is None:
+        m_values = [10, 20, 50, 100, 200]
+
+    top_m_indices = np.argsort(np.abs(delta_train))[::-1]
+    d_model = h_train.shape[1]
+    results = []
+
+    for m in m_values:
+        if m > z_train.shape[1]:
+            continue
+
+        # Sparse: top-m SAE features selected by train-split |Δ|
+        indices = top_m_indices[:m]
+        sparse_metrics = train_probe(z_train[:, indices], y_train, z_test[:, indices], y_test)
+
+        # Dense: random m-dim projection of raw transformer activations
+        dense_aurocs = []
+        for seed in range(n_random_seeds):
+            rng = np.random.default_rng(seed)
+            R = rng.standard_normal((d_model, m)).astype(np.float32)
+            R /= np.linalg.norm(R, axis=0, keepdims=True)
+            dense_metrics = train_probe(h_train @ R, y_train, h_test @ R, y_test)
+            dense_aurocs.append(dense_metrics["auroc"])
+
+        results.append({
+            "m": m,
+            "sparse_auroc": sparse_metrics["auroc"],
+            "sparse_accuracy": sparse_metrics["accuracy"],
+            "sparse_f1": sparse_metrics["f1_score"],
+            "dense_auroc_mean": float(np.mean(dense_aurocs)),
+            "dense_auroc_std": float(np.std(dense_aurocs)),
+            "sparse_beats_dense": bool(sparse_metrics["auroc"] > float(np.mean(dense_aurocs))),
+        })
+
+    return {"m_sweep": results}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-samples", type=int, default=50_000)
@@ -285,7 +446,7 @@ def main() -> None:
     print(f"Encoded samples: train={len(train_encoded)}  test={len(test_encoded)}")
 
     print("Extracting pooled SAE latents for train split...")
-    z_train_mean, z_train_max, y_train = pooled_sae_latents_for_samples(
+    z_train_mean, z_train_max, h_train_mean, h_train_max, y_train = pooled_sae_latents_for_samples(
         encoded_samples=train_encoded,
         transformer=transformer,
         sae=sae,
@@ -296,7 +457,7 @@ def main() -> None:
     )
 
     print("Extracting pooled SAE latents for test split...")
-    z_test_mean, z_test_max, y_test = pooled_sae_latents_for_samples(
+    z_test_mean, z_test_max, h_test_mean, h_test_max, y_test = pooled_sae_latents_for_samples(
         encoded_samples=test_encoded,
         transformer=transformer,
         sae=sae,
@@ -310,9 +471,59 @@ def main() -> None:
     stats_mean = feature_sentiment_stats(z_test_mean, y_test, top_k=args.top_k)
     stats_max = feature_sentiment_stats(z_test_max, y_test, top_k=args.top_k)
 
+    # Full delta on train split — used for H1 and H3 feature selection (no leakage).
+    pos_mask = y_train == 1
+    neg_mask = y_train == 0
+    delta_train_full = (
+        z_train_mean[pos_mask].mean(axis=0) - z_train_mean[neg_mask].mean(axis=0)
+    )
+
     print("Training linear probes...")
     probe_mean = train_probe(z_train_mean, y_train, z_test_mean, y_test)
     probe_max = train_probe(z_train_max, y_train, z_test_max, y_test)
+
+    print("Running H1 concentration analysis...")
+    h1_results = h1_concentration_analysis(delta_train_full)
+
+    print("Running H3 sparse vs dense comparison...")
+    h3_results_mean = h3_sparse_vs_dense(
+        z_train_mean, z_test_mean,
+        h_train_mean, h_test_mean,
+        y_train, y_test,
+        delta_train_full,
+    )
+    h3_results_max = h3_sparse_vs_dense(
+        z_train_max, z_test_max,
+        h_train_max, h_test_max,
+        y_train, y_test,
+        delta_train_full,
+    )
+
+    print(f"Finding top activating examples for top-{args.top_k} features...")
+    top_feature_indices = [
+        f["feature_idx"] for f in stats_mean["top_auroc_features"]
+    ]
+    top_examples = find_top_activating_examples(
+        feature_indices=top_feature_indices,
+        encoded_samples=test_encoded,
+        transformer=transformer,
+        sae=sae,
+        layer_idx=layer_idx,
+        max_seq_len=data_cfg.max_seq_len,
+        device=device,
+        tokenizer=tokenizer,
+        n_examples=10,
+        context_window=8,
+        max_scan=5000,
+    )
+    # Attach examples to each feature's stats entry
+    top_auroc_features_with_examples = []
+    for feat in stats_mean["top_auroc_features"]:
+        fi = feat["feature_idx"]
+        top_auroc_features_with_examples.append({
+            **feat,
+            "top_examples": top_examples.get(fi, []),
+        })
 
     results = {
         "analysis": "SAE latent sentiment association",
@@ -327,13 +538,21 @@ def main() -> None:
         "n_test_reviews": int(len(y_test)),
         "pooling": {
             "mean": {
-                "feature_stats": stats_mean,
+                "feature_stats": {
+                    **stats_mean,
+                    "top_auroc_features": top_auroc_features_with_examples,
+                },
                 "probe_metrics": probe_mean,
             },
             "max": {
                 "feature_stats": stats_max,
                 "probe_metrics": probe_max,
             },
+        },
+        "h1_concentration": h1_results,
+        "h3_sparse_vs_dense": {
+            "mean_pool": h3_results_mean,
+            "max_pool": h3_results_max,
         },
     }
 
@@ -346,7 +565,18 @@ def main() -> None:
     print(f"  Probe (max-pool)   AUROC: {probe_max['auroc']:.4f}")
     print(f"  Top single-feature AUROC (mean): {stats_mean['global_stats']['max_feature_auroc']:.4f}")
     print(f"  Top single-feature AUROC (max) : {stats_max['global_stats']['max_feature_auroc']:.4f}")
-    print(f"Results saved to {out_path}")
+    h1 = h1_results
+    print(f"\n  H1 concentration: {h1['features_needed']} / {h1['total_features']} features "
+          f"({h1['fraction_of_features_needed']*100:.1f}%) account for "
+          f"{h1['target_fraction']*100:.0f}% of |Δ| signal  "
+          f"→ H1 {'SUPPORTED' if h1['h1_supported'] else 'NOT supported'}")
+    print(f"\n  H3 sparse vs dense (mean-pool, m=50):")
+    for row in h3_results_mean["m_sweep"]:
+        if row["m"] == 50:
+            print(f"    sparse AUROC: {row['sparse_auroc']:.4f}  "
+                  f"dense AUROC: {row['dense_auroc_mean']:.4f} ± {row['dense_auroc_std']:.4f}  "
+                  f"→ sparse {'beats' if row['sparse_beats_dense'] else 'loses to'} dense")
+    print(f"\nResults saved to {out_path}")
 
 
 if __name__ == "__main__":
