@@ -180,12 +180,20 @@ def pooled_sae_latents_for_samples(
     )
 
 
-def safe_auroc(y: np.ndarray, scores: np.ndarray) -> float:
-    if np.all(y == y[0]):
-        return 0.5
-    if np.all(scores == scores[0]):
-        return 0.5
-    return float(roc_auc_score(y, scores))
+def vectorized_auroc(z: np.ndarray, y: np.ndarray) -> np.ndarray:
+    """Compute AUROC for all features simultaneously via rank-sum statistic."""
+    n_pos = int((y == 1).sum())
+    n_neg = int((y == 0).sum())
+    if n_pos == 0 or n_neg == 0:
+        return np.full(z.shape[1], 0.5, dtype=np.float32)
+
+    # Double argsort gives ordinal ranks per feature in one vectorized pass.
+    ranks = np.argsort(np.argsort(z, axis=0, kind="stable"), axis=0, kind="stable").astype(np.float64) + 1
+    pos_rank_sum = ranks[y == 1].sum(axis=0)
+    aurocs = (pos_rank_sum - n_pos * (n_pos + 1) / 2) / (n_pos * n_neg)
+    # Zero-variance features (e.g. dead) get 0.5
+    aurocs = np.where(z.var(axis=0) == 0, 0.5, aurocs)
+    return np.clip(aurocs, 0, 1).astype(np.float32)
 
 
 def feature_sentiment_stats(z: np.ndarray, y: np.ndarray, top_k: int) -> dict:
@@ -198,7 +206,7 @@ def feature_sentiment_stats(z: np.ndarray, y: np.ndarray, top_k: int) -> dict:
     mean_neg = z[neg].mean(axis=0)
     delta = mean_pos - mean_neg
 
-    feature_aurocs = np.array([safe_auroc(y, z[:, j]) for j in range(z.shape[1])], dtype=np.float32)
+    feature_aurocs = vectorized_auroc(z, y)
 
     order_pos = np.argsort(delta)[::-1]
     order_neg = np.argsort(delta)
@@ -233,7 +241,8 @@ def feature_sentiment_stats(z: np.ndarray, y: np.ndarray, top_k: int) -> dict:
 
 
 def train_probe(z_train: np.ndarray, y_train: np.ndarray, z_test: np.ndarray, y_test: np.ndarray) -> dict:
-    # Scale features before logistic regression for better optimizer convergence.
+    # lbfgs converges fast for small feature spaces; saga handles large ones.
+    solver = "lbfgs" if z_train.shape[1] <= 200 else "saga"
     clf = Pipeline(
         [
             ("scaler", StandardScaler()),
@@ -241,8 +250,7 @@ def train_probe(z_train: np.ndarray, y_train: np.ndarray, z_test: np.ndarray, y_
                 "logreg",
                 LogisticRegression(
                     max_iter=5000,
-                    solver="saga",
-                    n_jobs=-1,
+                    solver=solver,
                     random_state=42,
                 ),
             ),
@@ -272,45 +280,69 @@ def find_top_activating_examples(
     n_examples: int = 10,
     context_window: int = 8,
     max_scan: int = 5000,
+    batch_size: int = 64,
 ) -> dict[int, list[dict]]:
-    """Single pass over samples collecting top activating examples for each feature."""
+    """Batched single pass over samples collecting top activating examples per feature."""
+    # Heap entries: (activation_value, counter, entry_dict). Counter breaks ties
+    # so Python never falls back to comparing dicts.
     heaps: dict[int, list] = {fi: [] for fi in feature_indices}
+    counter = 0
     samples_to_scan = encoded_samples[:max_scan]
+    all_ids = [ids for ids, _ in samples_to_scan]
+    all_labels = [label for _, label in samples_to_scan]
+    pad_id = 0
 
-    for ids, label in samples_to_scan:
-        n = min(len(ids), max_seq_len)
-        x = torch.tensor(ids[:n], dtype=torch.long, device=device).unsqueeze(0)
+    for batch_start in range(0, len(samples_to_scan), batch_size):
+        batch = samples_to_scan[batch_start: batch_start + batch_size]
+        bsz = len(batch)
+        lengths = [min(len(ids), max_seq_len) for ids, _ in batch]
 
-        acts = transformer.get_layer_activations(x, layer_idx)       # (1, n, d_model)
+        x = torch.full((bsz, max_seq_len), pad_id, dtype=torch.long, device=device)
+        for i, (ids, _) in enumerate(batch):
+            n = lengths[i]
+            x[i, :n] = torch.tensor(ids[:n], dtype=torch.long, device=device)
+
+        lengths_t = torch.tensor(lengths, dtype=torch.long, device=device)
+        positions = torch.arange(max_seq_len, device=device).unsqueeze(0)
+        valid_mask = positions < lengths_t.unsqueeze(1)              # (B, T)
+
+        acts = transformer.get_layer_activations(x, layer_idx)       # (B, T, d_model)
         acts_centered = acts - sae.decoder.bias.view(1, 1, -1)
-        z = sae.encode(acts_centered)[0]                              # (n, d_hidden)
+        z = sae.encode(acts_centered)                                 # (B, T, d_hidden)
 
         for fi in feature_indices:
-            feat_acts = z[:, fi]
-            max_val, max_tok = feat_acts.max(dim=0)
-            max_val = max_val.item()
-            max_tok = max_tok.item()
+            feat_acts = z[:, :, fi].masked_fill(~valid_mask, float("-inf"))  # (B, T)
+            max_vals, max_toks = feat_acts.max(dim=1)                        # (B,)
 
-            if max_val <= 0:
-                continue
+            for i in range(bsz):
+                max_val = max_vals[i].item()
+                if max_val <= 0 or not torch.isfinite(max_vals[i]):
+                    continue
 
-            start = max(0, max_tok - context_window)
-            end = min(n, max_tok + context_window + 1)
-            entry = {
-                "activation_value": max_val,
-                "sentiment": "positive" if label == 1 else "negative",
-                "peak_token": tokenizer.decode([ids[max_tok]]),
-                "context": tokenizer.decode(ids[start:end]),
-            }
+                max_tok = max_toks[i].item()
+                sample_idx = batch_start + i
+                ids = all_ids[sample_idx]
+                label = all_labels[sample_idx]
+                n = lengths[i]
 
-            heap = heaps[fi]
-            if len(heap) < n_examples:
-                heapq.heappush(heap, (max_val, entry))
-            elif max_val > heap[0][0]:
-                heapq.heapreplace(heap, (max_val, entry))
+                start = max(0, max_tok - context_window)
+                end = min(n, max_tok + context_window + 1)
+                entry = {
+                    "activation_value": max_val,
+                    "sentiment": "positive" if label == 1 else "negative",
+                    "peak_token": tokenizer.decode([ids[max_tok]]),
+                    "context": tokenizer.decode(ids[start:end]),
+                }
+
+                heap = heaps[fi]
+                if len(heap) < n_examples:
+                    heapq.heappush(heap, (max_val, counter, entry))
+                elif max_val > heap[0][0]:
+                    heapq.heapreplace(heap, (max_val, counter, entry))
+                counter += 1
 
     return {
-        fi: [e for _, e in sorted(heaps[fi], key=lambda t: -t[0])]
+        fi: [e for _, _, e in sorted(heaps[fi], key=lambda t: -t[0])]
         for fi in feature_indices
     }
 
@@ -515,6 +547,7 @@ def main() -> None:
         n_examples=10,
         context_window=8,
         max_scan=5000,
+        batch_size=args.batch_size,
     )
     # Attach examples to each feature's stats entry
     top_auroc_features_with_examples = []
