@@ -8,7 +8,11 @@ import math
 import os
 import time
 
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import torch
+from tqdm import tqdm
 import torch.nn as nn
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import CosineAnnealingLR
@@ -101,7 +105,8 @@ def train_transformer(
         epoch_loss, epoch_steps = 0.0, 0
         t0 = time.time()
 
-        for x, y in train_loader:
+        pbar = tqdm(train_loader, desc=f"Epoch {epoch}/{train_cfg.num_epochs}", unit="batch")
+        for x, y in pbar:
             x, y = x.to(device), y.to(device)
 
             # Warmup
@@ -122,16 +127,12 @@ def train_transformer(
             epoch_steps += 1
             global_step += 1
 
-            if global_step % train_cfg.log_every == 0:
-                print(
-                    f"  step={global_step}  loss={loss.item():.4f}  "
-                    f"lr={optimizer.param_groups[0]['lr']:.2e}"
-                )
+            pbar.set_postfix(loss=f"{loss.item():.4f}", lr=f"{optimizer.param_groups[0]['lr']:.2e}")
 
             if global_step % train_cfg.eval_every == 0:
                 val_loss = evaluate(model, val_loader, device)
                 val_ppl = math.exp(val_loss)
-                print(f"  [eval] val_loss={val_loss:.4f}  ppl={val_ppl:.2f}")
+                tqdm.write(f"  [eval] step={global_step}  val_loss={val_loss:.4f}  ppl={val_ppl:.2f}")
                 if val_loss < best_val_loss:
                     best_val_loss = val_loss
                     torch.save(
@@ -183,6 +184,23 @@ def train_transformer(
         json.dump(results, f, indent=2)
     print(f"\nResults saved to {out_path}")
     print(f"Final val perplexity: {final_ppl:.2f}")
+
+    # Loss curve
+    epochs = [h["epoch"] for h in history]
+    train_losses = [h["train_loss"] for h in history]
+    val_losses = [h["val_loss"] for h in history]
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.plot(epochs, train_losses, marker="o", label="Train loss")
+    ax.plot(epochs, val_losses, marker="s", linestyle="--", label="Val loss")
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel("Cross-entropy loss")
+    ax.set_title("Transformer training curve")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+    curve_path = os.path.join(results_dir, "transformer_loss_curve.png")
+    fig.savefig(curve_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    print(f"Loss curve saved to {curve_path}")
 
     return results
 
