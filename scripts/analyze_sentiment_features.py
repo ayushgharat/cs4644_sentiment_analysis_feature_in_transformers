@@ -24,6 +24,8 @@ import tiktoken
 import torch
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 # Add project root to path so `src` is importable when run as script.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -216,7 +218,21 @@ def feature_sentiment_stats(z: np.ndarray, y: np.ndarray, top_k: int) -> dict:
 
 
 def train_probe(z_train: np.ndarray, y_train: np.ndarray, z_test: np.ndarray, y_test: np.ndarray) -> dict:
-    clf = LogisticRegression(max_iter=1000, solver="lbfgs")
+    # Scale features before logistic regression for better optimizer convergence.
+    clf = Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            (
+                "logreg",
+                LogisticRegression(
+                    max_iter=5000,
+                    solver="saga",
+                    n_jobs=-1,
+                    random_state=42,
+                ),
+            ),
+        ]
+    )
     clf.fit(z_train, y_train)
     pred = clf.predict(z_test)
     proba = clf.predict_proba(z_test)[:, 1]
