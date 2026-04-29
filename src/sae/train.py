@@ -13,6 +13,7 @@ import os
 import time
 
 import torch
+import torch.nn.functional as F
 from torch.optim import AdamW
 from torch.utils.data import DataLoader, TensorDataset
 
@@ -63,6 +64,58 @@ def collect_activations(
     activations = torch.cat(chunks, dim=0)[:max_activations]
     print(f"  Collected {activations.size(0):,} activation vectors")
     return activations
+
+
+# ---------------------------------------------------------------------------
+# Feature resampling
+# ---------------------------------------------------------------------------
+
+@torch.no_grad()
+def resample_dead_features(
+    sae: TopKSparseAutoencoder,
+    activations: torch.Tensor,
+    device: torch.device,
+    dead_threshold: float = 1e-4,
+    scan_size: int = 8192,
+) -> int:
+    """
+    Reinitialize dead feature encoder directions toward high-reconstruction-
+    error samples. Returns number of features resampled.
+    """
+    freqs = sae.get_feature_activation_frequencies()
+    dead_mask = freqs < dead_threshold
+    n_dead = int(dead_mask.sum().item())
+    if n_dead == 0:
+        return 0
+
+    # Score a random subset of activations by per-sample reconstruction error.
+    indices = torch.randperm(len(activations))[:scan_size]
+    sample = activations[indices].to(device)
+
+    sae.eval()
+    x_centred = sample - sae.decoder.bias
+    z = sae.encode(x_centred)
+    x_hat = sae.decode(z)
+    per_sample_err = ((sample - x_hat) ** 2).mean(dim=-1).cpu()  # (scan_size,)
+    sae.train()
+
+    # Sample n_dead activation vectors weighted by reconstruction error.
+    probs = (per_sample_err / per_sample_err.sum()).numpy()
+    chosen = torch.tensor(
+        __import__("numpy").random.choice(scan_size, size=n_dead, replace=True, p=probs)
+    )
+    candidates = activations[indices[chosen]].to(device)
+
+    # Normalize and use as new encoder directions.
+    directions = F.normalize(candidates - sae.decoder.bias, dim=-1)
+    dead_idx = dead_mask.nonzero(as_tuple=True)[0]
+    sae.encoder.weight.data[dead_idx] = directions
+    sae.encoder.bias.data[dead_idx] = 0.0
+
+    # Reset running stats so resampled features start fresh.
+    sae.feature_counts[dead_idx] = 0.0
+
+    return n_dead
 
 
 # ---------------------------------------------------------------------------
@@ -168,11 +221,20 @@ def train_sae(
 
         avg_loss = epoch_loss / max(epoch_steps, 1)
         elapsed = time.time() - t0
+
+        freqs = sae.get_feature_activation_frequencies().cpu()
+        n_dead = int((freqs < 1e-4).sum().item())
         print(
             f"Epoch {epoch}/{train_cfg.num_epochs}  "
-            f"avg_recon_loss={avg_loss:.6f}  ({elapsed:.0f}s)"
+            f"avg_recon_loss={avg_loss:.6f}  dead={n_dead}/{sae_cfg.d_hidden}  ({elapsed:.0f}s)"
         )
-        history.append({"epoch": epoch, "avg_recon_loss": avg_loss})
+        history.append({"epoch": epoch, "avg_recon_loss": avg_loss, "dead_features": n_dead})
+
+        # Resample dead features periodically.
+        if epoch % train_cfg.resample_every_n_epochs == 0 and epoch < train_cfg.num_epochs:
+            n_resampled = resample_dead_features(sae, activations, device)
+            if n_resampled > 0:
+                print(f"  Resampled {n_resampled} dead features.")
 
         if avg_loss < best_loss:
             best_loss = avg_loss
@@ -200,7 +262,7 @@ def train_sae(
     print(f"  Mean act freq   : {mean_freq:.4f}")
 
     results = {
-        "model": "TopK-SAE (k=32, 2048 features)",
+        "model": f"TopK-SAE (k={sae_cfg.k}, {sae_cfg.d_hidden} features)",
         "layer": sae_cfg.layer_idx,
         "d_hidden": sae_cfg.d_hidden,
         "k": sae_cfg.k,

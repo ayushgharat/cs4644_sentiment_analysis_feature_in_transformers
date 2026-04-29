@@ -24,7 +24,7 @@ class TransformerConfig:
 @dataclass
 class SAEConfig:
     d_input: int = 256               # Must match TransformerConfig.d_model
-    expansion_factor: int = 8        # d_hidden = 256 * 8 = 2048
+    expansion_factor: int = 4        # d_hidden = 256 * 4 = 1024
     k: int = 32                      # Top-K sparsity
     layer_idx: int = 3               # Which transformer layer to hook
 
@@ -49,7 +49,8 @@ class TransformerTrainingConfig:
 class SAETrainingConfig:
     batch_size: int = 256
     learning_rate: float = 2e-4
-    num_epochs: int = 5
-    max_activations: int = 500_000   # Cap activation vectors collected
+    num_epochs: int = 10
+    max_activations: int = 2_000_000  # Cap activation vectors collected
     checkpoint_dir: str = "checkpoints"
-    log_every: int = 100
+    log_every: int = 200
+    resample_every_n_epochs: int = 2  # Resample dead features every N epochs
