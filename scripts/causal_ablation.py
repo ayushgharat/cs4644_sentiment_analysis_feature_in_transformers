@@ -213,8 +213,8 @@ def ablate_sample(
         Using raw logits (not log-softmax) so entropy changes cancel out.
         """
         raw = forward_from_layer(transformer, sae.decode(z_batch), layer_idx)[:, -1, :]
-        pos_mean = raw[:, pos_ids_t].mean(dim=-1)
-        neg_mean = raw[:, neg_ids_t].mean(dim=-1)
+        pos_mean = raw[:, pos_token_ids].mean(dim=-1)
+        neg_mean = raw[:, neg_token_ids].mean(dim=-1)
         if label == 1:
             return pos_mean - neg_mean   # should drop when positive features ablated
         else:
