@@ -204,14 +204,24 @@ def ablate_sample(
     if len(sentiment_ids) == 0:
         return {}
 
-    def lp_sentiment(z_batch: torch.Tensor) -> torch.Tensor:
-        """z_batch: (B, n, d_hidden) -> (B,) mean log-prob over sentiment tokens at last pos."""
-        logits = forward_from_layer(transformer, sae.decode(z_batch), layer_idx)
-        lp = F.log_softmax(logits[:, -1, :], dim=-1)
-        return lp[:, sentiment_ids].mean(dim=-1)
+    def logit_diff(z_batch: torch.Tensor) -> torch.Tensor:
+        """
+        z_batch: (B, n, d_hidden) -> (B,) polarity logit difference at last position.
+        For positive reviews: mean_logit(pos_tokens) - mean_logit(neg_tokens).
+        For negative reviews: mean_logit(neg_tokens) - mean_logit(pos_tokens).
+        Ablating polarity features should decrease this value (delta < 0).
+        Using raw logits (not log-softmax) so entropy changes cancel out.
+        """
+        raw = forward_from_layer(transformer, sae.decode(z_batch), layer_idx)[:, -1, :]
+        pos_mean = raw[:, pos_ids_t].mean(dim=-1)
+        neg_mean = raw[:, neg_ids_t].mean(dim=-1)
+        if label == 1:
+            return pos_mean - neg_mean   # should drop when positive features ablated
+        else:
+            return neg_mean - pos_mean   # should drop when negative features ablated
 
-    # Baseline: full reconstruction, no ablation
-    lp_base = lp_sentiment(z.unsqueeze(0)).item()
+    # Baseline: full SAE reconstruction (no ablation)
+    lp_base = logit_diff(z.unsqueeze(0)).item()
 
     feature_indices = pos_features if label == 1 else neg_features
     d_hidden = z.shape[-1]
@@ -233,7 +243,7 @@ def ablate_sample(
             ablated_list.append(z_r)
             meta.append((k, "random"))
 
-    lp_all = lp_sentiment(torch.stack(ablated_list)).cpu().numpy()
+    lp_all = logit_diff(torch.stack(ablated_list)).cpu().numpy()
 
     results: dict[int, dict] = {}
     for (k, kind), lp in zip(meta, lp_all):
