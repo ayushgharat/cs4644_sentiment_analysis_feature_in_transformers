@@ -30,9 +30,10 @@ env/
 checkpoints/
 *.pt
 
-# Pipeline outputs (not source code)
-results/
-
-# Logs
+# Logs (structured JSON results in results/ are tracked instead)
 *.log
+
+# Large binary outputs in results
+results/*.png
+results/*.pdf
 

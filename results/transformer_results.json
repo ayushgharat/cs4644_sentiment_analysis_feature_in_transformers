@@ -1,0 +1,29 @@
+{
+  "model": "TinyTransformer (4L-256d-8H)",
+  "params": 29867520,
+  "final_val_loss": 7.273531645536423,
+  "final_val_perplexity": 1441.6328092898214,
+  "best_val_loss": Infinity,
+  "best_val_perplexity": Infinity,
+  "epochs": 3,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 11.22172478706606,
+      "val_loss": 10.500136017799377,
+      "val_ppl": 36320.44256495259
+    },
+    {
+      "epoch": 2,
+      "train_loss": 9.2983536412639,
+      "val_loss": 8.154751896858215,
+      "val_ppl": 3479.8758500467343
+    },
+    {
+      "epoch": 3,
+      "train_loss": 7.434086245875204,
+      "val_loss": 7.273531645536423,
+      "val_ppl": 1441.6328092898214
+    }
+  ]
+}

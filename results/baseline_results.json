@@ -1,0 +1,186 @@
+{
+  "model": "TF-IDF + Logistic Regression",
+  "num_train": 40000,
+  "num_test": 10000,
+  "tfidf_vocab_size": 50000,
+  "accuracy": 0.902,
+  "f1_score": 0.9021956087824351,
+  "confusion_matrix": [
+    [
+      4500,
+      466
+    ],
+    [
+      514,
+      4520
+    ]
+  ],
+  "label_map": {
+    "0": "negative",
+    "1": "positive"
+  },
+  "top_positive_features": [
+    {
+      "feature": "great",
+      "coefficient": 12.29093445170209
+    },
+    {
+      "feature": "excellent",
+      "coefficient": 8.257845579492066
+    },
+    {
+      "feature": "best",
+      "coefficient": 6.713257331142725
+    },
+    {
+      "feature": "love",
+      "coefficient": 6.375974810779711
+    },
+    {
+      "feature": "perfect",
+      "coefficient": 5.922179832194046
+    },
+    {
+      "feature": "good",
+      "coefficient": 5.887889792726188
+    },
+    {
+      "feature": "awesome",
+      "coefficient": 5.528026014307551
+    },
+    {
+      "feature": "wonderful",
+      "coefficient": 5.403225142459873
+    },
+    {
+      "feature": "amazing",
+      "coefficient": 5.382114751311871
+    },
+    {
+      "feature": "the best",
+      "coefficient": 4.939845315286696
+    },
+    {
+      "feature": "easy",
+      "coefficient": 4.721109595387718
+    },
+    {
+      "feature": "fun",
+      "coefficient": 4.564907700276209
+    },
+    {
+      "feature": "well",
+      "coefficient": 4.213401822957028
+    },
+    {
+      "feature": "love it",
+      "coefficient": 4.100434974533179
+    },
+    {
+      "feature": "better than",
+      "coefficient": 4.03810521689753
+    },
+    {
+      "feature": "highly",
+      "coefficient": 3.9472922407348827
+    },
+    {
+      "feature": "easy to",
+      "coefficient": 3.922302225208295
+    },
+    {
+      "feature": "works",
+      "coefficient": 3.847818733332788
+    },
+    {
+      "feature": "very good",
+      "coefficient": 3.7424370582977704
+    },
+    {
+      "feature": "nice",
+      "coefficient": 3.740938303874931
+    }
+  ],
+  "top_negative_features": [
+    {
+      "feature": "not",
+      "coefficient": -11.603938627493998
+    },
+    {
+      "feature": "poor",
+      "coefficient": -7.6451290237708625
+    },
+    {
+      "feature": "disappointed",
+      "coefficient": -7.013807036432477
+    },
+    {
+      "feature": "disappointing",
+      "coefficient": -6.819537580637269
+    },
+    {
+      "feature": "worst",
+      "coefficient": -6.804245130020892
+    },
+    {
+      "feature": "boring",
+      "coefficient": -6.78057277090048
+    },
+    {
+      "feature": "waste",
+      "coefficient": -6.206179448619059
+    },
+    {
+      "feature": "terrible",
+      "coefficient": -5.755311560706117
+    },
+    {
+      "feature": "nothing",
+      "coefficient": -5.296282686604661
+    },
+    {
+      "feature": "horrible",
+      "coefficient": -5.248350004629132
+    },
+    {
+      "feature": "not worth",
+      "coefficient": -5.213694477642797
+    },
+    {
+      "feature": "money",
+      "coefficient": -5.211907044064258
+    },
+    {
+      "feature": "bad",
+      "coefficient": -5.0992496545264245
+    },
+    {
+      "feature": "disappointment",
+      "coefficient": -5.034456074907032
+    },
+    {
+      "feature": "awful",
+      "coefficient": -4.50520819622838
+    },
+    {
+      "feature": "the worst",
+      "coefficient": -4.4739212558148465
+    },
+    {
+      "feature": "don",
+      "coefficient": -4.270505556215376
+    },
+    {
+      "feature": "no",
+      "coefficient": -4.225982581327478
+    },
+    {
+      "feature": "very disappointed",
+      "coefficient": -4.138329511039172
+    },
+    {
+      "feature": "at all",
+      "coefficient": -4.130789311116942
+    }
+  ]
+}
