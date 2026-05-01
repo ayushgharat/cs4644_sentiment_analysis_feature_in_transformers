@@ -1,0 +1,3444 @@
+{
+  "analysis": "SAE latent sentiment association",
+  "num_samples": 50000,
+  "batch_size": 64,
+  "max_seq_len": 128,
+  "layer_idx": 3,
+  "checkpoint_dir": "checkpoints",
+  "transformer_checkpoint": "checkpoints/transformer_best.pt",
+  "sae_checkpoint": "checkpoints/sae_best.pt",
+  "n_train_reviews": 40000,
+  "n_test_reviews": 10000,
+  "pooling": {
+    "mean": {
+      "feature_stats": {
+        "n_features": 1024,
+        "top_positive_features": [
+          {
+            "feature_idx": 885,
+            "mean_positive": 6.420032501220703,
+            "mean_negative": 5.00771427154541,
+            "delta_pos_minus_neg": 1.412318229675293,
+            "auroc": 0.6050053834915161
+          },
+          {
+            "feature_idx": 69,
+            "mean_positive": 3.415440559387207,
+            "mean_negative": 2.3759117126464844,
+            "delta_pos_minus_neg": 1.0395288467407227,
+            "auroc": 0.6132166981697083
+          },
+          {
+            "feature_idx": 927,
+            "mean_positive": 6.376247882843018,
+            "mean_negative": 5.529131889343262,
+            "delta_pos_minus_neg": 0.8471159934997559,
+            "auroc": 0.6043174862861633
+          },
+          {
+            "feature_idx": 642,
+            "mean_positive": 4.644282341003418,
+            "mean_negative": 4.054495811462402,
+            "delta_pos_minus_neg": 0.5897865295410156,
+            "auroc": 0.5893185138702393
+          },
+          {
+            "feature_idx": 645,
+            "mean_positive": 3.5273449420928955,
+            "mean_negative": 2.9433085918426514,
+            "delta_pos_minus_neg": 0.5840363502502441,
+            "auroc": 0.6109358668327332
+          },
+          {
+            "feature_idx": 818,
+            "mean_positive": 4.408833026885986,
+            "mean_negative": 4.019299030303955,
+            "delta_pos_minus_neg": 0.38953399658203125,
+            "auroc": 0.5616162419319153
+          },
+          {
+            "feature_idx": 911,
+            "mean_positive": 2.7921364307403564,
+            "mean_negative": 2.4045333862304688,
+            "delta_pos_minus_neg": 0.3876030445098877,
+            "auroc": 0.5463312864303589
+          },
+          {
+            "feature_idx": 610,
+            "mean_positive": 3.139361619949341,
+            "mean_negative": 2.891045570373535,
+            "delta_pos_minus_neg": 0.24831604957580566,
+            "auroc": 0.5766382813453674
+          },
+          {
+            "feature_idx": 925,
+            "mean_positive": 1.8836945295333862,
+            "mean_negative": 1.6752827167510986,
+            "delta_pos_minus_neg": 0.2084118127822876,
+            "auroc": 0.5802221298217773
+          },
+          {
+            "feature_idx": 421,
+            "mean_positive": 2.157029390335083,
+            "mean_negative": 1.967513918876648,
+            "delta_pos_minus_neg": 0.18951547145843506,
+            "auroc": 0.5505239367485046
+          },
+          {
+            "feature_idx": 614,
+            "mean_positive": 1.3868718147277832,
+            "mean_negative": 1.2378431558609009,
+            "delta_pos_minus_neg": 0.14902865886688232,
+            "auroc": 0.5563061833381653
+          },
+          {
+            "feature_idx": 611,
+            "mean_positive": 0.4818498492240906,
+            "mean_negative": 0.34856975078582764,
+            "delta_pos_minus_neg": 0.13328009843826294,
+            "auroc": 0.5736768245697021
+          },
+          {
+            "feature_idx": 937,
+            "mean_positive": 0.993198037147522,
+            "mean_negative": 0.868909478187561,
+            "delta_pos_minus_neg": 0.12428855895996094,
+            "auroc": 0.5544947981834412
+          },
+          {
+            "feature_idx": 956,
+            "mean_positive": 2.7058193683624268,
+            "mean_negative": 2.583688735961914,
+            "delta_pos_minus_neg": 0.1221306324005127,
+            "auroc": 0.5327544808387756
+          },
+          {
+            "feature_idx": 501,
+            "mean_positive": 0.2963400185108185,
+            "mean_negative": 0.18507973849773407,
+            "delta_pos_minus_neg": 0.11126028001308441,
+            "auroc": 0.6406963467597961
+          },
+          {
+            "feature_idx": 540,
+            "mean_positive": 0.5156623125076294,
+            "mean_negative": 0.4089280664920807,
+            "delta_pos_minus_neg": 0.1067342460155487,
+            "auroc": 0.5841346979141235
+          },
+          {
+            "feature_idx": 957,
+            "mean_positive": 0.17080576717853546,
+            "mean_negative": 0.06819921731948853,
+            "delta_pos_minus_neg": 0.10260654985904694,
+            "auroc": 0.6374556422233582
+          },
+          {
+            "feature_idx": 126,
+            "mean_positive": 3.20456862449646,
+            "mean_negative": 3.1037604808807373,
+            "delta_pos_minus_neg": 0.10080814361572266,
+            "auroc": 0.5054451823234558
+          },
+          {
+            "feature_idx": 910,
+            "mean_positive": 0.9138270020484924,
+            "mean_negative": 0.834002673625946,
+            "delta_pos_minus_neg": 0.07982432842254639,
+            "auroc": 0.536374032497406
+          },
+          {
+            "feature_idx": 178,
+            "mean_positive": 0.6278461217880249,
+            "mean_negative": 0.5487534403800964,
+            "delta_pos_minus_neg": 0.07909268140792847,
+            "auroc": 0.554089367389679
+          }
+        ],
+        "top_negative_features": [
+          {
+            "feature_idx": 671,
+            "mean_positive": 6.1427083015441895,
+            "mean_negative": 7.7630133628845215,
+            "delta_pos_minus_neg": -1.620305061340332,
+            "auroc": 0.39281487464904785
+          },
+          {
+            "feature_idx": 404,
+            "mean_positive": 3.1045303344726562,
+            "mean_negative": 4.140695095062256,
+            "delta_pos_minus_neg": -1.0361647605895996,
+            "auroc": 0.39187759160995483
+          },
+          {
+            "feature_idx": 148,
+            "mean_positive": 3.0072524547576904,
+            "mean_negative": 3.5075907707214355,
+            "delta_pos_minus_neg": -0.5003383159637451,
+            "auroc": 0.39388036727905273
+          },
+          {
+            "feature_idx": 526,
+            "mean_positive": 4.81075382232666,
+            "mean_negative": 5.248464107513428,
+            "delta_pos_minus_neg": -0.4377102851867676,
+            "auroc": 0.4231446087360382
+          },
+          {
+            "feature_idx": 900,
+            "mean_positive": 6.068009853363037,
+            "mean_negative": 6.485530853271484,
+            "delta_pos_minus_neg": -0.41752099990844727,
+            "auroc": 0.43042609095573425
+          },
+          {
+            "feature_idx": 779,
+            "mean_positive": 2.487312078475952,
+            "mean_negative": 2.897915840148926,
+            "delta_pos_minus_neg": -0.41060376167297363,
+            "auroc": 0.4155605733394623
+          },
+          {
+            "feature_idx": 1021,
+            "mean_positive": 14.178348541259766,
+            "mean_negative": 14.395451545715332,
+            "delta_pos_minus_neg": -0.2171030044555664,
+            "auroc": 0.4850500822067261
+          },
+          {
+            "feature_idx": 292,
+            "mean_positive": 2.005831718444824,
+            "mean_negative": 2.219660997390747,
+            "delta_pos_minus_neg": -0.21382927894592285,
+            "auroc": 0.42434313893318176
+          },
+          {
+            "feature_idx": 849,
+            "mean_positive": 0.44698214530944824,
+            "mean_negative": 0.6482720971107483,
+            "delta_pos_minus_neg": -0.20128995180130005,
+            "auroc": 0.40512916445732117
+          },
+          {
+            "feature_idx": 814,
+            "mean_positive": 4.934507369995117,
+            "mean_negative": 5.086818695068359,
+            "delta_pos_minus_neg": -0.1523113250732422,
+            "auroc": 0.4673112630844116
+          },
+          {
+            "feature_idx": 83,
+            "mean_positive": 2.462070941925049,
+            "mean_negative": 2.596207618713379,
+            "delta_pos_minus_neg": -0.13413667678833008,
+            "auroc": 0.4542319178581238
+          },
+          {
+            "feature_idx": 782,
+            "mean_positive": 0.1880485713481903,
+            "mean_negative": 0.31458237767219543,
+            "delta_pos_minus_neg": -0.12653380632400513,
+            "auroc": 0.3797004520893097
+          },
+          {
+            "feature_idx": 724,
+            "mean_positive": 4.79456901550293,
+            "mean_negative": 4.9203572273254395,
+            "delta_pos_minus_neg": -0.12578821182250977,
+            "auroc": 0.4791308343410492
+          },
+          {
+            "feature_idx": 275,
+            "mean_positive": 1.0832040309906006,
+            "mean_negative": 1.207138180732727,
+            "delta_pos_minus_neg": -0.12393414974212646,
+            "auroc": 0.44763079285621643
+          },
+          {
+            "feature_idx": 385,
+            "mean_positive": 1.2709672451019287,
+            "mean_negative": 1.3856619596481323,
+            "delta_pos_minus_neg": -0.11469471454620361,
+            "auroc": 0.4552818238735199
+          },
+          {
+            "feature_idx": 595,
+            "mean_positive": 0.7873988151550293,
+            "mean_negative": 0.8926138281822205,
+            "delta_pos_minus_neg": -0.10521501302719116,
+            "auroc": 0.45679977536201477
+          },
+          {
+            "feature_idx": 620,
+            "mean_positive": 0.1464615762233734,
+            "mean_negative": 0.2501161992549896,
+            "delta_pos_minus_neg": -0.10365462303161621,
+            "auroc": 0.3544330596923828
+          },
+          {
+            "feature_idx": 744,
+            "mean_positive": 0.5586550235748291,
+            "mean_negative": 0.6622069478034973,
+            "delta_pos_minus_neg": -0.10355192422866821,
+            "auroc": 0.4080188274383545
+          },
+          {
+            "feature_idx": 111,
+            "mean_positive": 1.2649869918823242,
+            "mean_negative": 1.3671557903289795,
+            "delta_pos_minus_neg": -0.10216879844665527,
+            "auroc": 0.4544489085674286
+          },
+          {
+            "feature_idx": 391,
+            "mean_positive": 0.14478009939193726,
+            "mean_negative": 0.2460239827632904,
+            "delta_pos_minus_neg": -0.10124388337135315,
+            "auroc": 0.3436093330383301
+          }
+        ],
+        "top_auroc_features": [
+          {
+            "feature_idx": 501,
+            "mean_positive": 0.2963400185108185,
+            "mean_negative": 0.18507973849773407,
+            "delta_pos_minus_neg": 0.11126028001308441,
+            "auroc": 0.6406963467597961,
+            "top_examples": [
+              {
+                "activation_value": 22.772748947143555,
+                "sentiment": "positive",
+                "peak_token": " great",
+                "context": " length it goes very quickly and is a great start for someone who wants to learn about"
+              },
+              {
+                "activation_value": 22.438152313232422,
+                "sentiment": "positive",
+                "peak_token": " excellent",
+                "context": " and his uncle. The Car is an excellent book and I loved it. Gary Pul"
+              },
+              {
+                "activation_value": 22.3712100982666,
+                "sentiment": "positive",
+                "peak_token": " perfect",
+                "context": " cold winter of new york city is a perfect metaphor for the hidden coldness of people"
+              },
+              {
+                "activation_value": 22.28995132446289,
+                "sentiment": "positive",
+                "peak_token": " perfect",
+                "context": ", beautiful Oregon coast, it is a perfect book to curl up with on a rainy"
+              },
+              {
+                "activation_value": 22.166484832763672,
+                "sentiment": "positive",
+                "peak_token": " excellent",
+                "context": "'t Get Out Of\" is just an excellent song as is \"Kite.\" \""
+              },
+              {
+                "activation_value": 22.16339874267578,
+                "sentiment": "positive",
+                "peak_token": " great",
+                "context": ", fun to laugh with, and a great friend to have along for travel or lonely"
+              },
+              {
+                "activation_value": 22.132863998413086,
+                "sentiment": "positive",
+                "peak_token": " excellent",
+                "context": " alike. A good read, and an excellent fantasy story"
+              },
+              {
+                "activation_value": 22.098848342895508,
+                "sentiment": "positive",
+                "peak_token": " excellent",
+                "context": "Middle School Coach This book is an excellent source for all age levels. It gives"
+              },
+              {
+                "activation_value": 22.062068939208984,
+                "sentiment": "positive",
+                "peak_token": " great",
+                "context": " an excellent example of this and is a great read"
+              },
+              {
+                "activation_value": 21.966331481933594,
+                "sentiment": "positive",
+                "peak_token": " great",
+                "context": " heard \"I Believe\", which is another great song. I haven't heard this complete"
+              }
+            ]
+          },
+          {
+            "feature_idx": 957,
+            "mean_positive": 0.17080576717853546,
+            "mean_negative": 0.06819921731948853,
+            "delta_pos_minus_neg": 0.10260654985904694,
+            "auroc": 0.6374556422233582,
+            "top_examples": [
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "negative",
+                "peak_token": "Good",
+                "context": "Good enough but... These are NOT professional quality"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good read Well worth the price for the book"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "negative",
+                "peak_token": "Good",
+                "context": "Good while it lasted At first, this seemed"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good product, good price, quick delivery Only"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good flick I enjoyed the film very much!"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good! Decent movie; good action;"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good GPS device The GPS navigator is very neat"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "negative",
+                "peak_token": "Good",
+                "context": "Good for a short time I loved this item"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good Trimmer I actually ended up here because"
+              },
+              {
+                "activation_value": 21.815799713134766,
+                "sentiment": "positive",
+                "peak_token": "Good",
+                "context": "Good solid stuff, but a little fluffy A"
+              }
+            ]
+          },
+          {
+            "feature_idx": 69,
+            "mean_positive": 3.415440559387207,
+            "mean_negative": 2.3759117126464844,
+            "delta_pos_minus_neg": 1.0395288467407227,
+            "auroc": 0.6132166981697083,
+            "top_examples": [
+              {
+                "activation_value": 42.161861419677734,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " is a complex plot, fully resolved containing the atmospheric writing that JLB does as well"
+              },
+              {
+                "activation_value": 41.107765197753906,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " understand style, Dr Sproul explains the roots of Reformed Theology and its"
+              },
+              {
+                "activation_value": 41.054100036621094,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " yourself a favor. A book that reveals the major plot point in the first sentence is"
+              },
+              {
+                "activation_value": 40.73808670043945,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " cheer Kate on as she struggles to make the right decisions, you are upset at her"
+              },
+              {
+                "activation_value": 40.48569107055664,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " considering the variety of amazing talents who contributed the wisdom of their years and experiences? After"
+              },
+              {
+                "activation_value": 40.22218322753906,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": "ers. Parker does a great job telling the story of the Waner brothers and has"
+              },
+              {
+                "activation_value": 39.96159362792969,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " in a strange way. Victor likewise shares the same sentiments about Milan. Their friendship becomes"
+              },
+              {
+                "activation_value": 39.87858963012695,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " evolution into contemporary forms. Hoffman also examines the connection between religion and terrorism; the international"
+              },
+              {
+                "activation_value": 39.80525207519531,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " bent to it. Sovreign tells the story of an extremely conflicted man driven"
+              },
+              {
+                "activation_value": 39.55141830444336,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " The stories of the farming style should remind the reader of the importance of stewardship of"
+              }
+            ]
+          },
+          {
+            "feature_idx": 645,
+            "mean_positive": 3.5273449420928955,
+            "mean_negative": 2.9433085918426514,
+            "delta_pos_minus_neg": 0.5840363502502441,
+            "auroc": 0.6109358668327332,
+            "top_examples": [
+              {
+                "activation_value": 30.619426727294922,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " the \"disaster book\" genre. The author seems more concerned with reliving her"
+              },
+              {
+                "activation_value": 30.471372604370117,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": "Any possibility of a sequel? The title of my review says it all."
+              },
+              {
+                "activation_value": 30.064897537231445,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": " word journey through centries of wonder! The book starts off slowly, but only for"
+              },
+              {
+                "activation_value": 30.037010192871094,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " a fabulous book I was incredibly disappointed. The author was not true to his characters."
+              },
+              {
+                "activation_value": 30.036109924316406,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": " penetrates every corner of the imagination. The characters brilliantly come to life, and the"
+              },
+              {
+                "activation_value": 29.91608428955078,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": "drop of nuclear holocaust is terrifying. The characters are developed enough that I am interested"
+              },
+              {
+                "activation_value": 29.84124183654785,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " critical thought about the contemporary art world. The book is limited in the mediums represented,"
+              },
+              {
+                "activation_value": 29.805341720581055,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": " facts and people into a fictional work. The author is not adverse to killing off the"
+              },
+              {
+                "activation_value": 29.74821662902832,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": " to find the root of the crime. The resolution is quite unusual yet satisfying. The"
+              },
+              {
+                "activation_value": 29.74072265625,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": "Another beautifully written novel by JLB. The second Billy Bob Holland story is a wonderful"
+              }
+            ]
+          },
+          {
+            "feature_idx": 885,
+            "mean_positive": 6.420032501220703,
+            "mean_negative": 5.00771427154541,
+            "delta_pos_minus_neg": 1.412318229675293,
+            "auroc": 0.6050053834915161,
+            "top_examples": [
+              {
+                "activation_value": 57.41388702392578,
+                "sentiment": "positive",
+                "peak_token": " Bry",
+                "context": " about the friendship between a girl named Sarah Brynes(she has scars on her face"
+              },
+              {
+                "activation_value": 55.40586853027344,
+                "sentiment": "negative",
+                "peak_token": " Barr",
+                "context": " books I'm a big fan of Nevada Barr, and always look forward to herlatest"
+              },
+              {
+                "activation_value": 54.554229736328125,
+                "sentiment": "negative",
+                "peak_token": " Dem",
+                "context": " struggled through this one. I think Mr Demille like a number of his peers is"
+              },
+              {
+                "activation_value": 53.95106506347656,
+                "sentiment": "positive",
+                "peak_token": " Ra",
+                "context": "ard Butler) while her childhood sweetheart, Raoul (Patrick Wilson), tries despar"
+              },
+              {
+                "activation_value": 53.60551071166992,
+                "sentiment": "negative",
+                "peak_token": " Bo",
+                "context": ". LevinThe FairTax Book by Neal Boortz\"It is sad that this site"
+              },
+              {
+                "activation_value": 53.473915100097656,
+                "sentiment": "positive",
+                "peak_token": " Coul",
+                "context": " Revised\"). In this regard, even Ann Coulter is more refreshing"
+              },
+              {
+                "activation_value": 52.962032318115234,
+                "sentiment": "positive",
+                "peak_token": " Ra",
+                "context": " at Penney Retirement Community where Meinhardt Raabe lives, so my sister has had"
+              },
+              {
+                "activation_value": 52.51804733276367,
+                "sentiment": "negative",
+                "peak_token": " Lov",
+                "context": " Man\" chapter compared to the \"What Lovemaking Means to a Woman\".)"
+              },
+              {
+                "activation_value": 52.19034957885742,
+                "sentiment": "positive",
+                "peak_token": " Berg",
+                "context": " it explains how the main character, Michael Berg, meets a middle aged women when she"
+              },
+              {
+                "activation_value": 52.177005767822266,
+                "sentiment": "positive",
+                "peak_token": " Pe",
+                "context": " most criticized one. \"Boys For Pele\" is extremely hard to get used"
+              }
+            ]
+          },
+          {
+            "feature_idx": 927,
+            "mean_positive": 6.376247882843018,
+            "mean_negative": 5.529131889343262,
+            "delta_pos_minus_neg": 0.8471159934997559,
+            "auroc": 0.6043174862861633,
+            "top_examples": [
+              {
+                "activation_value": 57.232269287109375,
+                "sentiment": "negative",
+                "peak_token": " the",
+                "context": " a terrible movie I have to say that the books didn't grab me, but the"
+              },
+              {
+                "activation_value": 54.845951080322266,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " Perhaps that worst movie of the year!! The acting was bad, the plot was bad"
+              },
+              {
+                "activation_value": 54.4294319152832,
+                "sentiment": "positive",
+                "peak_token": " the",
+                "context": " were more than two books! I think the person before me made a mistake in their"
+              },
+              {
+                "activation_value": 54.25039291381836,
+                "sentiment": "negative",
+                "peak_token": " the",
+                "context": "love the series love the series but i am having trouble with about"
+              },
+              {
+                "activation_value": 53.87807083129883,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": " of the reasons I love her writing. The story line is fascinating and you never know"
+              },
+              {
+                "activation_value": 53.5212287902832,
+                "sentiment": "positive",
+                "peak_token": " The",
+                "context": " interesting movie, that I really liked. The mix of comedy and mystery is really unique"
+              },
+              {
+                "activation_value": 53.517024993896484,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " didn't like the book at all. The book did not meet my expectations of a"
+              },
+              {
+                "activation_value": 53.43339157104492,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " most annoying book I have ever read. The author is a talentless hack with a"
+              },
+              {
+                "activation_value": 53.390907287597656,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": " really surprised by anything about this movie? The plot is standard fare. The acting is"
+              },
+              {
+                "activation_value": 53.300968170166016,
+                "sentiment": "negative",
+                "peak_token": " The",
+                "context": "Where is my book???????? The only thing I can say is that I"
+              }
+            ]
+          },
+          {
+            "feature_idx": 985,
+            "mean_positive": 0.3076121211051941,
+            "mean_negative": 0.24117876589298248,
+            "delta_pos_minus_neg": 0.06643335521221161,
+            "auroc": 0.5966795682907104,
+            "top_examples": [
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad bad bad This book is a joke."
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad Discs I really wanted to see this"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad measures I bought this item because the measures"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad Bad Bad This is possibly the worst film"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad design My wife tried to install and could"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad idea The unit only worked 5 minutes"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad puzzle I agree with the other reviewers."
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad book This book is like reading a history"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad Battery Batterty was totally dead and would"
+              },
+              {
+                "activation_value": 20.445390701293945,
+                "sentiment": "negative",
+                "peak_token": "Bad",
+                "context": "Bad sound quality The speakers are not of good"
+              }
+            ]
+          },
+          {
+            "feature_idx": 819,
+            "mean_positive": 0.0827483981847763,
+            "mean_negative": 0.05420719087123871,
+            "delta_pos_minus_neg": 0.028541207313537598,
+            "auroc": 0.5906915068626404,
+            "top_examples": [
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "positive",
+                "peak_token": "Out",
+                "context": "Outstanding stories with a strong culinary theme Don"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "negative",
+                "peak_token": "Out",
+                "context": "Outdated, not enough diagrams, no answers"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "positive",
+                "peak_token": "Out",
+                "context": "Outstanding! This was my first purchase of"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "negative",
+                "peak_token": "Out",
+                "context": "Out of date, get somthing more current"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "positive",
+                "peak_token": "Out",
+                "context": "Outstanding Joe documents his journeyas we watch"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "negative",
+                "peak_token": "Out",
+                "context": "Out-of-date but Very Good for It's"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "negative",
+                "peak_token": "Out",
+                "context": "Outdated game Too bad this didn't get"
+              },
+              {
+                "activation_value": 17.252517700195312,
+                "sentiment": "negative",
+                "peak_token": "Out",
+                "context": "Outdated and boring This toy is too simplistic"
+              },
+              {
+                "activation_value": 14.796048164367676,
+                "sentiment": "positive",
+                "peak_token": "One",
+                "context": "One of the best Voyager episodes Kate Mulg"
+              },
+              {
+                "activation_value": 14.796048164367676,
+                "sentiment": "positive",
+                "peak_token": "One",
+                "context": "One of Jerry Goldsmith's best... Jerry"
+              }
+            ]
+          },
+          {
+            "feature_idx": 642,
+            "mean_positive": 4.644282341003418,
+            "mean_negative": 4.054495811462402,
+            "delta_pos_minus_neg": 0.5897865295410156,
+            "auroc": 0.5893185138702393,
+            "top_examples": [
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great debut album by an unknown band This is"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great Entertainment Beauty and The Beast is simply put"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great watch! I like this watch. Its"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great ps3 stand for the price Hello all"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great Paper for medium format printer This paper print"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great toy but no seat belt: i found"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great reference book for pro's and Beginers"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "negative",
+                "peak_token": "Great",
+                "context": "Great fun, great teaching opportunities, but little"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great Books American Girls are a great way to"
+              },
+              {
+                "activation_value": 50.65465545654297,
+                "sentiment": "positive",
+                "peak_token": "Great",
+                "context": "Great Intro to Shakespeare Although this book is written"
+              }
+            ]
+          },
+          {
+            "feature_idx": 446,
+            "mean_positive": 0.45021766424179077,
+            "mean_negative": 0.3742303252220154,
+            "delta_pos_minus_neg": 0.07598733901977539,
+            "auroc": 0.5859956741333008,
+            "top_examples": [
+              {
+                "activation_value": 15.21023178100586,
+                "sentiment": "positive",
+                "peak_token": " Bates",
+                "context": " literature on its own, without imagining Kathy Bates and Mary Stuart Masterson in their big"
+              },
+              {
+                "activation_value": 13.987044334411621,
+                "sentiment": "negative",
+                "peak_token": " Banks",
+                "context": "ness'..Infact,I gave Mr Banks one star but really he owes me stars"
+              },
+              {
+                "activation_value": 13.761615753173828,
+                "sentiment": "positive",
+                "peak_token": "zac",
+                "context": " and finds relief in the miracles of Prozac, Xanax, Valium, Amb"
+              },
+              {
+                "activation_value": 13.682455062866211,
+                "sentiment": "positive",
+                "peak_token": " addiction",
+                "context": " clear picture the mental and spiritual causes of addiction. It helps the counselor to come up"
+              },
+              {
+                "activation_value": 13.587696075439453,
+                "sentiment": "negative",
+                "peak_token": " america",
+                "context": "ickening. The fact that anyone in america would believe this, much less write a"
+              },
+              {
+                "activation_value": 13.536787986755371,
+                "sentiment": "positive",
+                "peak_token": " america",
+                "context": " sells for $25-$30. in america, it's half that or less."
+              },
+              {
+                "activation_value": 13.22441577911377,
+                "sentiment": "negative",
+                "peak_token": " Venezuela",
+                "context": " Good day,He writes francis from Venezuela and inform you that I can not give"
+              },
+              {
+                "activation_value": 13.119499206542969,
+                "sentiment": "positive",
+                "peak_token": " Davies",
+                "context": " stuff like this that much. Also Jeremy Davies (Yes, the Dr. Daniel Far"
+              },
+              {
+                "activation_value": 13.014348030090332,
+                "sentiment": "negative",
+                "peak_token": " Egypt",
+                "context": " a few years and is currently living in Egypt working for the king. The king sends"
+              },
+              {
+                "activation_value": 12.99482536315918,
+                "sentiment": "negative",
+                "peak_token": " berries",
+                "context": " lost in the world and lives off of berries. She's scared the whole time and"
+              }
+            ]
+          },
+          {
+            "feature_idx": 16,
+            "mean_positive": 0.3780207633972168,
+            "mean_negative": 0.3082036077976227,
+            "delta_pos_minus_neg": 0.06981715559959412,
+            "auroc": 0.5859255194664001,
+            "top_examples": [
+              {
+                "activation_value": 23.216873168945312,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " response to boring stories like Beuwolf and the such. Ibn Fadlan was"
+              },
+              {
+                "activation_value": 22.857511520385742,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": "! Good work Armin van Buuren and Jan Vayne!! Stead of this"
+              },
+              {
+                "activation_value": 22.135034561157227,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " Exaucse me but where's Han and Leia? And I think the next few"
+              },
+              {
+                "activation_value": 21.83188819885254,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " them. Other then that, Cinderella and Ariel are"
+              },
+              {
+                "activation_value": 21.75755500793457,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": "ack is the common denominator between Opal and Mazzy Star. Since I also love"
+              },
+              {
+                "activation_value": 21.664226531982422,
+                "sentiment": "negative",
+                "peak_token": " and",
+                "context": "MTs to stitch up. Whiny and annoying. Why do people like this"
+              },
+              {
+                "activation_value": 21.580869674682617,
+                "sentiment": "negative",
+                "peak_token": " and",
+                "context": " excuse to have the audience see Mulder and Scully again. I did, but"
+              },
+              {
+                "activation_value": 21.564414978027344,
+                "sentiment": "negative",
+                "peak_token": " and",
+                "context": " been done with better results with Eddie Murphy and Ricard Pryor and even Steve Martin"
+              },
+              {
+                "activation_value": 21.50959014892578,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " skip this part), as if Winnie and Grant broke up so that Lisa could enter"
+              },
+              {
+                "activation_value": 21.4052791595459,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " Step Behind is no exception as Wallander and his colleagues have to solve a murder mystery"
+              }
+            ]
+          },
+          {
+            "feature_idx": 787,
+            "mean_positive": 0.21456287801265717,
+            "mean_negative": 0.143645241856575,
+            "delta_pos_minus_neg": 0.07091763615608215,
+            "auroc": 0.5851007103919983,
+            "top_examples": [
+              {
+                "activation_value": 22.17333221435547,
+                "sentiment": "positive",
+                "peak_token": " Jean",
+                "context": "A book by an outstanding mentor Dr. Jeanne Shaw is an outstanding mentor and guide"
+              },
+              {
+                "activation_value": 21.58897590637207,
+                "sentiment": "positive",
+                "peak_token": " Brian",
+                "context": " survive, but in time he learns. Brian also learns to hunt, cook, listen"
+              },
+              {
+                "activation_value": 21.576587677001953,
+                "sentiment": "negative",
+                "peak_token": " Kevin",
+                "context": "ious, perfect, pass on this. Kevin Henkes is an incredible illustrator and has"
+              },
+              {
+                "activation_value": 21.566177368164062,
+                "sentiment": "positive",
+                "peak_token": " Rick",
+                "context": " The most astounding aspect of this album is Rick's poetic lyrics, which only add to"
+              },
+              {
+                "activation_value": 21.349498748779297,
+                "sentiment": "positive",
+                "peak_token": " Brian",
+                "context": " Enjoed every cut, except for Brian Wilson's version of \"Sweets for"
+              },
+              {
+                "activation_value": 20.880359649658203,
+                "sentiment": "positive",
+                "peak_token": " Eric",
+                "context": " from being burnt) and a guy named Eric Calhoone. The book tells about"
+              },
+              {
+                "activation_value": 20.835933685302734,
+                "sentiment": "positive",
+                "peak_token": " Marilyn",
+                "context": " Manson. An absolutely awesome exploration of everything Marilyn Manson. If you ever thought that Marilyn"
+              },
+              {
+                "activation_value": 20.784852981567383,
+                "sentiment": "positive",
+                "peak_token": " Kay",
+                "context": "Moving Ms. Kay did an excellent job with this novel."
+              },
+              {
+                "activation_value": 20.733654022216797,
+                "sentiment": "negative",
+                "peak_token": " Lauren",
+                "context": " the reader to judge. Whatever degradation author Lauren Weisberger suffered at the hands of"
+              },
+              {
+                "activation_value": 20.70248031616211,
+                "sentiment": "positive",
+                "peak_token": " Brian",
+                "context": " I highly suggest Redwall, or any Brian Jaques book. There hasn't been"
+              }
+            ]
+          },
+          {
+            "feature_idx": 540,
+            "mean_positive": 0.5156623125076294,
+            "mean_negative": 0.4089280664920807,
+            "delta_pos_minus_neg": 0.1067342460155487,
+            "auroc": 0.5841346979141235,
+            "top_examples": [
+              {
+                "activation_value": 30.23541831970215,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": ", the main character, lack of romance. I beleive it may be one of"
+              },
+              {
+                "activation_value": 30.018657684326172,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " anthemic. He is in excellent voice. The production is sterling, and instrumentation superb"
+              },
+              {
+                "activation_value": 29.860244750976562,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " talking to the the Doctor'sAshes. It goes something like \"For love I"
+              },
+              {
+                "activation_value": 29.796875,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " digs to find the root of the crime. The resolution is quite unusual yet satisfying."
+              },
+              {
+                "activation_value": 29.43657875061035,
+                "sentiment": "negative",
+                "peak_token": ".",
+                "context": " or most of her lyrics on the album. All I have with LL cool J is"
+              },
+              {
+                "activation_value": 29.054624557495117,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " the highest rank of prodigous talent. His guitar playing prowess takes you to the"
+              },
+              {
+                "activation_value": 28.85569953918457,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " story from the soliders point of view. Especially the stories of Omaha beach (16"
+              },
+              {
+                "activation_value": 28.774829864501953,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " listen to as well as sing along with. Rick has an amazing vocal range, remarkable"
+              },
+              {
+                "activation_value": 28.730592727661133,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": "'s-who of the jazz fusion movement. There are only two tracks on this album"
+              },
+              {
+                "activation_value": 28.65289878845215,
+                "sentiment": "positive",
+                "peak_token": ".",
+                "context": " Jerry Jerome, and ofcourse Artie. This was the best of all of Sh"
+              }
+            ]
+          },
+          {
+            "feature_idx": 288,
+            "mean_positive": 0.08016962558031082,
+            "mean_negative": 0.04446030035614967,
+            "delta_pos_minus_neg": 0.03570932522416115,
+            "auroc": 0.5816107988357544,
+            "top_examples": [
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "positive",
+                "peak_token": "A",
+                "context": "A Must See Hit! Usually, after reading"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "negative",
+                "peak_token": "A",
+                "context": "A damaged individual. Richard Marcinko's"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "positive",
+                "peak_token": "A",
+                "context": "A good and detailed guide to AI Appreciative"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "negative",
+                "peak_token": "A",
+                "context": "A really false start for Andy Samberg We"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "negative",
+                "peak_token": "A",
+                "context": "A cynical defense point of view Hicko defense"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "positive",
+                "peak_token": "A",
+                "context": "A masterpiece in the field of chemical technology Any"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "positive",
+                "peak_token": "A",
+                "context": "A book by an outstanding mentor Dr. Jean"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "negative",
+                "peak_token": "A",
+                "context": "A real waste of money 'Revolvers"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "positive",
+                "peak_token": "A",
+                "context": "A Wonderful Daily Kabbalah Book This little"
+              },
+              {
+                "activation_value": 17.145593643188477,
+                "sentiment": "positive",
+                "peak_token": "A",
+                "context": "A very good read Enjoyed this series."
+              }
+            ]
+          },
+          {
+            "feature_idx": 925,
+            "mean_positive": 1.8836945295333862,
+            "mean_negative": 1.6752827167510986,
+            "delta_pos_minus_neg": 0.2084118127822876,
+            "auroc": 0.5802221298217773,
+            "top_examples": [
+              {
+                "activation_value": 31.028417587280273,
+                "sentiment": "positive",
+                "peak_token": " extremely",
+                "context": " Sovreign tells the story of an extremely conflicted man driven by his biology and"
+              },
+              {
+                "activation_value": 30.737470626831055,
+                "sentiment": "negative",
+                "peak_token": " an",
+                "context": " This is a convoluted attempt by an academic to justify a worthless profession and subject"
+              },
+              {
+                "activation_value": 30.60590362548828,
+                "sentiment": "negative",
+                "peak_token": " an",
+                "context": "Sweet Info The book is an easy read, and rather vague. However"
+              },
+              {
+                "activation_value": 30.57994842529297,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": " up her successful 1996 debut with an even better album, 1998's"
+              },
+              {
+                "activation_value": 30.53626823425293,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": " in his career is a compelling look at an important figure in American music. The songs"
+              },
+              {
+                "activation_value": 30.19702911376953,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": " and white media, this book has been an invaluable reference tool. As a Librarian"
+              },
+              {
+                "activation_value": 30.008586883544922,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": "A great Superman story in an outer space setting. This is a very"
+              },
+              {
+                "activation_value": 29.85977554321289,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": " have done excellent research. The book is an excellent example of this and is a great"
+              },
+              {
+                "activation_value": 29.64312171936035,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": " the book, but it is written in an involving manner that brings the disparate personalities at"
+              },
+              {
+                "activation_value": 29.62972640991211,
+                "sentiment": "positive",
+                "peak_token": " an",
+                "context": ". The only thing the movie lacked was an uncle Billy Bob buring down the farm"
+              }
+            ]
+          },
+          {
+            "feature_idx": 541,
+            "mean_positive": 0.25287914276123047,
+            "mean_negative": 0.19536837935447693,
+            "delta_pos_minus_neg": 0.05751076340675354,
+            "auroc": 0.5789285898208618,
+            "top_examples": [
+              {
+                "activation_value": 18.633506774902344,
+                "sentiment": "negative",
+                "peak_token": " and",
+                "context": " good and covers a time period, location and perspective that is not generally used. Unfortunately"
+              },
+              {
+                "activation_value": 18.256616592407227,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " tree branches, shapes, buds, fruits and leaves. Everything from the shape of branches"
+              },
+              {
+                "activation_value": 18.13208770751953,
+                "sentiment": "negative",
+                "peak_token": " and",
+                "context": " worse, there are incorrect facts, names and dates throughout this book. And sadly,"
+              },
+              {
+                "activation_value": 17.85077667236328,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " wonderful work with the easy explanation, references and footnotes. I think that this book"
+              },
+              {
+                "activation_value": 17.803287506103516,
+                "sentiment": "negative",
+                "peak_token": " and",
+                "context": " joinery manual. Yes, the ideas and suggestions were valuble, but you should"
+              },
+              {
+                "activation_value": 17.780582427978516,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " idiom. The backing vocals, arrangements and sonics are also incomparable. His"
+              },
+              {
+                "activation_value": 17.335887908935547,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " a true talent for capturing the characters feelings and the flashbacks enhance and enlighten."
+              },
+              {
+                "activation_value": 17.2935733795166,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " to watch. Maybe the letters, words and stories seamed like so much information he"
+              },
+              {
+                "activation_value": 17.260147094726562,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " views on the value of God, families and politics really hits home. His constant focus"
+              },
+              {
+                "activation_value": 17.045490264892578,
+                "sentiment": "positive",
+                "peak_token": " and",
+                "context": " Not frightening or threatening, with good pictures and a happy ending"
+              }
+            ]
+          },
+          {
+            "feature_idx": 375,
+            "mean_positive": 0.1765376478433609,
+            "mean_negative": 0.1321573257446289,
+            "delta_pos_minus_neg": 0.044380322098731995,
+            "auroc": 0.5771881937980652,
+            "top_examples": [
+              {
+                "activation_value": 15.123621940612793,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": " most of my life, this book gives a great look into the past. While many"
+              },
+              {
+                "activation_value": 14.661739349365234,
+                "sentiment": "negative",
+                "peak_token": " a",
+                "context": "credible As a curiosity, this book deserves a 2. As for scholarship, accuracy"
+              },
+              {
+                "activation_value": 14.571146965026855,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": " for kobudo students. This book presents a historic view of the weapon as well as"
+              },
+              {
+                "activation_value": 14.520445823669434,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": ". The author uses excellent language to convey a sense of sheer terror, which is all"
+              },
+              {
+                "activation_value": 14.479607582092285,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": " some ways, it really introduces us to a very gentle, caring, forgiving, loving"
+              },
+              {
+                "activation_value": 14.430240631103516,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": " Crichton wrote this novel in such a way that is was easy to read and"
+              },
+              {
+                "activation_value": 14.428986549377441,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": " must for Tolkien fans! The book provides a rich dimension to the text version. I"
+              },
+              {
+                "activation_value": 14.352128028869629,
+                "sentiment": "positive",
+                "peak_token": " a",
+                "context": " I wonder if Jordan is a man or a man-hating feminist angry woman with a"
+              },
+              {
+                "activation_value": 14.326644897460938,
+                "sentiment": "negative",
+                "peak_token": " a",
+                "context": " book is just disappointing. It's about a girl that gets lost in the world and"
+              },
+              {
+                "activation_value": 14.175226211547852,
+                "sentiment": "negative",
+                "peak_token": " a",
+                "context": " guide for Child Abuse This book is merely a guide to promote child abuse. Although there"
+              }
+            ]
+          },
+          {
+            "feature_idx": 610,
+            "mean_positive": 3.139361619949341,
+            "mean_negative": 2.891045570373535,
+            "delta_pos_minus_neg": 0.24831604957580566,
+            "auroc": 0.5766382813453674,
+            "top_examples": [
+              {
+                "activation_value": 58.67460250854492,
+                "sentiment": "negative",
+                "peak_token": " lots",
+                "context": "Sounds Good but BAD I've heard lots of good about this toy! It sounds"
+              },
+              {
+                "activation_value": 58.609188079833984,
+                "sentiment": "positive",
+                "peak_token": " mixture",
+                "context": "Blue Planet A unique mixture of Blues, Jazz, and R&B"
+              },
+              {
+                "activation_value": 57.41816329956055,
+                "sentiment": "negative",
+                "peak_token": " lots",
+                "context": " is rather basic. You have to read lots of pages with information that is pretty obvious"
+              },
+              {
+                "activation_value": 57.15939712524414,
+                "sentiment": "positive",
+                "peak_token": " type",
+                "context": "Golden oldie!! This is the type of movie we should all be watching.."
+              },
+              {
+                "activation_value": 56.95852279663086,
+                "sentiment": "positive",
+                "peak_token": "Lots",
+                "context": "Lots of fun This a great magazine for the"
+              },
+              {
+                "activation_value": 56.95852279663086,
+                "sentiment": "negative",
+                "peak_token": "Lots",
+                "context": "Lots of potential, lack of follow-through I"
+              },
+              {
+                "activation_value": 56.83720397949219,
+                "sentiment": "positive",
+                "peak_token": " depiction",
+                "context": " that time. It also gives an accurate depiction of the pain that progress may cause for"
+              },
+              {
+                "activation_value": 56.814598083496094,
+                "sentiment": "negative",
+                "peak_token": " hundreds",
+                "context": " guess you can't change it now because hundreds of thousands have already bought the book.Th"
+              },
+              {
+                "activation_value": 56.74203872680664,
+                "sentiment": "negative",
+                "peak_token": "Piece",
+                "context": "Piece of crap! I have been buying this"
+              },
+              {
+                "activation_value": 56.74203872680664,
+                "sentiment": "negative",
+                "peak_token": "Piece",
+                "context": "Piece of junk When it works, it's"
+              }
+            ]
+          },
+          {
+            "feature_idx": 860,
+            "mean_positive": 0.4401721656322479,
+            "mean_negative": 0.3817961812019348,
+            "delta_pos_minus_neg": 0.05837598443031311,
+            "auroc": 0.5755406022071838,
+            "top_examples": [
+              {
+                "activation_value": 19.629335403442383,
+                "sentiment": "positive",
+                "peak_token": " of",
+                "context": "Yeehah-larious! One of Brook's most funny and most likely the"
+              },
+              {
+                "activation_value": 19.363483428955078,
+                "sentiment": "negative",
+                "peak_token": " for",
+                "context": " space is at a premium - and this for a book which is 600+ pages"
+              },
+              {
+                "activation_value": 19.09527015686035,
+                "sentiment": "negative",
+                "peak_token": " of",
+                "context": "absolutely terrible This without doubt is one of the worst films i have ever seen.Un"
+              },
+              {
+                "activation_value": 19.057775497436523,
+                "sentiment": "negative",
+                "peak_token": " of",
+                "context": "Ugh! One of the worst movies I have ever seen."
+              },
+              {
+                "activation_value": 18.896024703979492,
+                "sentiment": "positive",
+                "peak_token": " of",
+                "context": " any freestyle listener this is maybe one of the best volumes in the series by t"
+              },
+              {
+                "activation_value": 18.790557861328125,
+                "sentiment": "positive",
+                "peak_token": " of",
+                "context": ", thrilling and a brilliant read. One of the best series of books I have ever"
+              },
+              {
+                "activation_value": 18.725521087646484,
+                "sentiment": "positive",
+                "peak_token": " of",
+                "context": " THE best book on assimilation and one of the best books ever!These daughters struggle"
+              },
+              {
+                "activation_value": 18.511276245117188,
+                "sentiment": "negative",
+                "peak_token": " of",
+                "context": "Fiction cross dressing as Fact One of the sad results of a relativistic society"
+              },
+              {
+                "activation_value": 18.313817977905273,
+                "sentiment": "positive",
+                "peak_token": " of",
+                "context": " for \"Air Force One\" is one of the best action sountracks I've"
+              },
+              {
+                "activation_value": 18.306339263916016,
+                "sentiment": "negative",
+                "peak_token": " of",
+                "context": "What a disappointment One of the great pleasures of seeing this film in"
+              }
+            ]
+          },
+          {
+            "feature_idx": 611,
+            "mean_positive": 0.4818498492240906,
+            "mean_negative": 0.34856975078582764,
+            "delta_pos_minus_neg": 0.13328009843826294,
+            "auroc": 0.5736768245697021,
+            "top_examples": [
+              {
+                "activation_value": 25.632448196411133,
+                "sentiment": "positive",
+                "peak_token": " Desert",
+                "context": ".Well, it's not exactly like Desert Storm. First off - there are no"
+              },
+              {
+                "activation_value": 24.155078887939453,
+                "sentiment": "negative",
+                "peak_token": " Dark",
+                "context": " to this lame attempt to cash in on Dark Shadow's good name. It should never"
+              },
+              {
+                "activation_value": 23.52897071838379,
+                "sentiment": "positive",
+                "peak_token": " Dark",
+                "context": " DuckTales launched a spin-off called Darkwing Duck & even had characters like Launch"
+              },
+              {
+                "activation_value": 23.3234920501709,
+                "sentiment": "negative",
+                "peak_token": " Living",
+                "context": " the name or plot from Night of the Living Dead, and they knew it would be"
+              },
+              {
+                "activation_value": 23.255760192871094,
+                "sentiment": "negative",
+                "peak_token": " Mark",
+                "context": "70s Show) with a hint of Mark Rippetoe,"
+              },
+              {
+                "activation_value": 23.160062789916992,
+                "sentiment": "positive",
+                "peak_token": " Stephen",
+                "context": " of Mark Ryden, a little of Stephen Jay Gould in his more whimsical flights"
+              },
+              {
+                "activation_value": 23.0031681060791,
+                "sentiment": "positive",
+                "peak_token": " Iron",
+                "context": " Epipaleolithic and goes through the Iron Age. The text provides a lot of"
+              },
+              {
+                "activation_value": 22.93937873840332,
+                "sentiment": "negative",
+                "peak_token": " Red",
+                "context": ". At least I had a credit from Red Box so didn't have to the suffer"
+              },
+              {
+                "activation_value": 22.77408218383789,
+                "sentiment": "negative",
+                "peak_token": " Lonely",
+                "context": " the kind of things you get in a Lonely Planet or Falcon Books guide. Fayhee"
+              },
+              {
+                "activation_value": 22.69852638244629,
+                "sentiment": "negative",
+                "peak_token": " Air",
+                "context": " he needed for this is given on the Air Force Web pages. From the moment my"
+              }
+            ]
+          }
+        ],
+        "global_stats": {
+          "mean_abs_delta": 0.02130124717950821,
+          "max_abs_delta": 1.620305061340332,
+          "mean_feature_auroc": 0.4975023567676544,
+          "max_feature_auroc": 0.6406963467597961
+        }
+      },
+      "probe_metrics": {
+        "accuracy": 0.7796,
+        "f1_score": 0.778892455858748,
+        "auroc": 0.8620575415407209
+      }
+    },
+    "max": {
+      "feature_stats": {
+        "n_features": 1024,
+        "top_positive_features": [
+          {
+            "feature_idx": 642,
+            "mean_positive": 32.572120666503906,
+            "mean_negative": 27.3238468170166,
+            "delta_pos_minus_neg": 5.248273849487305,
+            "auroc": 0.6564993262290955
+          },
+          {
+            "feature_idx": 69,
+            "mean_positive": 19.828704833984375,
+            "mean_negative": 16.826454162597656,
+            "delta_pos_minus_neg": 3.0022506713867188,
+            "auroc": 0.5964887738227844
+          },
+          {
+            "feature_idx": 957,
+            "mean_positive": 6.078306198120117,
+            "mean_negative": 3.076091766357422,
+            "delta_pos_minus_neg": 3.0022144317626953,
+            "auroc": 0.6354812979698181
+          },
+          {
+            "feature_idx": 885,
+            "mean_positive": 29.125574111938477,
+            "mean_negative": 26.586959838867188,
+            "delta_pos_minus_neg": 2.538614273071289,
+            "auroc": 0.5693133473396301
+          },
+          {
+            "feature_idx": 540,
+            "mean_positive": 14.237997055053711,
+            "mean_negative": 11.740479469299316,
+            "delta_pos_minus_neg": 2.4975175857543945,
+            "auroc": 0.58875572681427
+          },
+          {
+            "feature_idx": 501,
+            "mean_positive": 9.90406608581543,
+            "mean_negative": 7.454046726226807,
+            "delta_pos_minus_neg": 2.450019359588623,
+            "auroc": 0.617655873298645
+          },
+          {
+            "feature_idx": 985,
+            "mean_positive": 8.385642051696777,
+            "mean_negative": 6.7084856033325195,
+            "delta_pos_minus_neg": 1.6771564483642578,
+            "auroc": 0.6022728681564331
+          },
+          {
+            "feature_idx": 927,
+            "mean_positive": 36.905426025390625,
+            "mean_negative": 35.37087631225586,
+            "delta_pos_minus_neg": 1.5345497131347656,
+            "auroc": 0.5501886606216431
+          },
+          {
+            "feature_idx": 911,
+            "mean_positive": 24.333250045776367,
+            "mean_negative": 22.890262603759766,
+            "delta_pos_minus_neg": 1.4429874420166016,
+            "auroc": 0.548240602016449
+          },
+          {
+            "feature_idx": 787,
+            "mean_positive": 5.917391777038574,
+            "mean_negative": 4.722497940063477,
+            "delta_pos_minus_neg": 1.1948938369750977,
+            "auroc": 0.5626922249794006
+          },
+          {
+            "feature_idx": 291,
+            "mean_positive": 4.272665977478027,
+            "mean_negative": 3.184840440750122,
+            "delta_pos_minus_neg": 1.0878255367279053,
+            "auroc": 0.5642776489257812
+          },
+          {
+            "feature_idx": 350,
+            "mean_positive": 16.517255783081055,
+            "mean_negative": 15.472404479980469,
+            "delta_pos_minus_neg": 1.044851303100586,
+            "auroc": 0.5307923555374146
+          },
+          {
+            "feature_idx": 611,
+            "mean_positive": 9.201302528381348,
+            "mean_negative": 8.174015998840332,
+            "delta_pos_minus_neg": 1.0272865295410156,
+            "auroc": 0.5490860939025879
+          },
+          {
+            "feature_idx": 924,
+            "mean_positive": 16.80880355834961,
+            "mean_negative": 15.789047241210938,
+            "delta_pos_minus_neg": 1.0197563171386719,
+            "auroc": 0.5572744011878967
+          },
+          {
+            "feature_idx": 16,
+            "mean_positive": 12.148579597473145,
+            "mean_negative": 11.14552116394043,
+            "delta_pos_minus_neg": 1.0030584335327148,
+            "auroc": 0.561496913433075
+          },
+          {
+            "feature_idx": 925,
+            "mean_positive": 17.725744247436523,
+            "mean_negative": 16.76554298400879,
+            "delta_pos_minus_neg": 0.9602012634277344,
+            "auroc": 0.558993399143219
+          },
+          {
+            "feature_idx": 577,
+            "mean_positive": 8.26310920715332,
+            "mean_negative": 7.3115034103393555,
+            "delta_pos_minus_neg": 0.9516057968139648,
+            "auroc": 0.547715425491333
+          },
+          {
+            "feature_idx": 645,
+            "mean_positive": 17.830944061279297,
+            "mean_negative": 16.921546936035156,
+            "delta_pos_minus_neg": 0.9093971252441406,
+            "auroc": 0.5565300583839417
+          },
+          {
+            "feature_idx": 541,
+            "mean_positive": 6.491367340087891,
+            "mean_negative": 5.587871551513672,
+            "delta_pos_minus_neg": 0.9034957885742188,
+            "auroc": 0.5620328187942505
+          },
+          {
+            "feature_idx": 114,
+            "mean_positive": 4.550686836242676,
+            "mean_negative": 3.6635444164276123,
+            "delta_pos_minus_neg": 0.8871424198150635,
+            "auroc": 0.5583268404006958
+          }
+        ],
+        "top_negative_features": [
+          {
+            "feature_idx": 849,
+            "mean_positive": 19.19218635559082,
+            "mean_negative": 26.509449005126953,
+            "delta_pos_minus_neg": -7.317262649536133,
+            "auroc": 0.408657044172287
+          },
+          {
+            "feature_idx": 404,
+            "mean_positive": 20.90177345275879,
+            "mean_negative": 25.619047164916992,
+            "delta_pos_minus_neg": -4.717273712158203,
+            "auroc": 0.3726997971534729
+          },
+          {
+            "feature_idx": 779,
+            "mean_positive": 38.3083610534668,
+            "mean_negative": 42.056861877441406,
+            "delta_pos_minus_neg": -3.7485008239746094,
+            "auroc": 0.41507747769355774
+          },
+          {
+            "feature_idx": 595,
+            "mean_positive": 19.938329696655273,
+            "mean_negative": 23.13274574279785,
+            "delta_pos_minus_neg": -3.194416046142578,
+            "auroc": 0.43980857729911804
+          },
+          {
+            "feature_idx": 782,
+            "mean_positive": 7.432796001434326,
+            "mean_negative": 10.626973152160645,
+            "delta_pos_minus_neg": -3.1941771507263184,
+            "auroc": 0.37434887886047363
+          },
+          {
+            "feature_idx": 391,
+            "mean_positive": 6.4489054679870605,
+            "mean_negative": 9.548676490783691,
+            "delta_pos_minus_neg": -3.099771022796631,
+            "auroc": 0.35557928681373596
+          },
+          {
+            "feature_idx": 671,
+            "mean_positive": 28.899744033813477,
+            "mean_negative": 31.974924087524414,
+            "delta_pos_minus_neg": -3.0751800537109375,
+            "auroc": 0.39094415307044983
+          },
+          {
+            "feature_idx": 640,
+            "mean_positive": 4.7800445556640625,
+            "mean_negative": 7.783815860748291,
+            "delta_pos_minus_neg": -3.0037713050842285,
+            "auroc": 0.43242552876472473
+          },
+          {
+            "feature_idx": 999,
+            "mean_positive": 5.659998893737793,
+            "mean_negative": 8.334928512573242,
+            "delta_pos_minus_neg": -2.674929618835449,
+            "auroc": 0.4115380644798279
+          },
+          {
+            "feature_idx": 618,
+            "mean_positive": 8.641319274902344,
+            "mean_negative": 11.246536254882812,
+            "delta_pos_minus_neg": -2.6052169799804688,
+            "auroc": 0.39986926317214966
+          },
+          {
+            "feature_idx": 481,
+            "mean_positive": 9.517071723937988,
+            "mean_negative": 12.062508583068848,
+            "delta_pos_minus_neg": -2.5454368591308594,
+            "auroc": 0.44848376512527466
+          },
+          {
+            "feature_idx": 509,
+            "mean_positive": 17.936899185180664,
+            "mean_negative": 20.45988655090332,
+            "delta_pos_minus_neg": -2.5229873657226562,
+            "auroc": 0.43856748938560486
+          },
+          {
+            "feature_idx": 989,
+            "mean_positive": 4.958254814147949,
+            "mean_negative": 7.259073257446289,
+            "delta_pos_minus_neg": -2.30081844329834,
+            "auroc": 0.3916492164134979
+          },
+          {
+            "feature_idx": 423,
+            "mean_positive": 11.305000305175781,
+            "mean_negative": 13.511604309082031,
+            "delta_pos_minus_neg": -2.20660400390625,
+            "auroc": 0.43639108538627625
+          },
+          {
+            "feature_idx": 793,
+            "mean_positive": 15.791959762573242,
+            "mean_negative": 17.934520721435547,
+            "delta_pos_minus_neg": -2.1425609588623047,
+            "auroc": 0.458427757024765
+          },
+          {
+            "feature_idx": 799,
+            "mean_positive": 3.0678694248199463,
+            "mean_negative": 5.161654472351074,
+            "delta_pos_minus_neg": -2.093785047531128,
+            "auroc": 0.40125712752342224
+          },
+          {
+            "feature_idx": 620,
+            "mean_positive": 4.664499282836914,
+            "mean_negative": 6.756086826324463,
+            "delta_pos_minus_neg": -2.091587543487549,
+            "auroc": 0.3468745946884155
+          },
+          {
+            "feature_idx": 385,
+            "mean_positive": 19.633304595947266,
+            "mean_negative": 21.60270881652832,
+            "delta_pos_minus_neg": -1.9694042205810547,
+            "auroc": 0.44246697425842285
+          },
+          {
+            "feature_idx": 237,
+            "mean_positive": 7.454656600952148,
+            "mean_negative": 9.40172004699707,
+            "delta_pos_minus_neg": -1.9470634460449219,
+            "auroc": 0.41520828008651733
+          },
+          {
+            "feature_idx": 354,
+            "mean_positive": 5.759120941162109,
+            "mean_negative": 7.656062126159668,
+            "delta_pos_minus_neg": -1.8969411849975586,
+            "auroc": 0.4336559772491455
+          }
+        ],
+        "top_auroc_features": [
+          {
+            "feature_idx": 642,
+            "mean_positive": 32.572120666503906,
+            "mean_negative": 27.3238468170166,
+            "delta_pos_minus_neg": 5.248273849487305,
+            "auroc": 0.6564993262290955
+          },
+          {
+            "feature_idx": 957,
+            "mean_positive": 6.078306198120117,
+            "mean_negative": 3.076091766357422,
+            "delta_pos_minus_neg": 3.0022144317626953,
+            "auroc": 0.6354812979698181
+          },
+          {
+            "feature_idx": 501,
+            "mean_positive": 9.90406608581543,
+            "mean_negative": 7.454046726226807,
+            "delta_pos_minus_neg": 2.450019359588623,
+            "auroc": 0.617655873298645
+          },
+          {
+            "feature_idx": 985,
+            "mean_positive": 8.385642051696777,
+            "mean_negative": 6.7084856033325195,
+            "delta_pos_minus_neg": 1.6771564483642578,
+            "auroc": 0.6022728681564331
+          },
+          {
+            "feature_idx": 69,
+            "mean_positive": 19.828704833984375,
+            "mean_negative": 16.826454162597656,
+            "delta_pos_minus_neg": 3.0022506713867188,
+            "auroc": 0.5964887738227844
+          },
+          {
+            "feature_idx": 540,
+            "mean_positive": 14.237997055053711,
+            "mean_negative": 11.740479469299316,
+            "delta_pos_minus_neg": 2.4975175857543945,
+            "auroc": 0.58875572681427
+          },
+          {
+            "feature_idx": 737,
+            "mean_positive": 7.43562126159668,
+            "mean_negative": 6.586954593658447,
+            "delta_pos_minus_neg": 0.8486666679382324,
+            "auroc": 0.5808370113372803
+          },
+          {
+            "feature_idx": 819,
+            "mean_positive": 3.365921974182129,
+            "mean_negative": 2.621924877166748,
+            "delta_pos_minus_neg": 0.7439970970153809,
+            "auroc": 0.5757967829704285
+          },
+          {
+            "feature_idx": 885,
+            "mean_positive": 29.125574111938477,
+            "mean_negative": 26.586959838867188,
+            "delta_pos_minus_neg": 2.538614273071289,
+            "auroc": 0.5693133473396301
+          },
+          {
+            "feature_idx": 288,
+            "mean_positive": 3.018789768218994,
+            "mean_negative": 2.1476593017578125,
+            "delta_pos_minus_neg": 0.8711304664611816,
+            "auroc": 0.5645204782485962
+          },
+          {
+            "feature_idx": 291,
+            "mean_positive": 4.272665977478027,
+            "mean_negative": 3.184840440750122,
+            "delta_pos_minus_neg": 1.0878255367279053,
+            "auroc": 0.5642776489257812
+          },
+          {
+            "feature_idx": 787,
+            "mean_positive": 5.917391777038574,
+            "mean_negative": 4.722497940063477,
+            "delta_pos_minus_neg": 1.1948938369750977,
+            "auroc": 0.5626922249794006
+          },
+          {
+            "feature_idx": 541,
+            "mean_positive": 6.491367340087891,
+            "mean_negative": 5.587871551513672,
+            "delta_pos_minus_neg": 0.9034957885742188,
+            "auroc": 0.5620328187942505
+          },
+          {
+            "feature_idx": 16,
+            "mean_positive": 12.148579597473145,
+            "mean_negative": 11.14552116394043,
+            "delta_pos_minus_neg": 1.0030584335327148,
+            "auroc": 0.561496913433075
+          },
+          {
+            "feature_idx": 453,
+            "mean_positive": 5.094441890716553,
+            "mean_negative": 4.594510078430176,
+            "delta_pos_minus_neg": 0.49993181228637695,
+            "auroc": 0.5592649579048157
+          },
+          {
+            "feature_idx": 925,
+            "mean_positive": 17.725744247436523,
+            "mean_negative": 16.76554298400879,
+            "delta_pos_minus_neg": 0.9602012634277344,
+            "auroc": 0.558993399143219
+          },
+          {
+            "feature_idx": 114,
+            "mean_positive": 4.550686836242676,
+            "mean_negative": 3.6635444164276123,
+            "delta_pos_minus_neg": 0.8871424198150635,
+            "auroc": 0.5583268404006958
+          },
+          {
+            "feature_idx": 375,
+            "mean_positive": 5.857295036315918,
+            "mean_negative": 5.065685272216797,
+            "delta_pos_minus_neg": 0.7916097640991211,
+            "auroc": 0.5572952032089233
+          },
+          {
+            "feature_idx": 924,
+            "mean_positive": 16.80880355834961,
+            "mean_negative": 15.789047241210938,
+            "delta_pos_minus_neg": 1.0197563171386719,
+            "auroc": 0.5572744011878967
+          },
+          {
+            "feature_idx": 992,
+            "mean_positive": 3.211073160171509,
+            "mean_negative": 2.930603265762329,
+            "delta_pos_minus_neg": 0.2804698944091797,
+            "auroc": 0.5567672252655029
+          }
+        ],
+        "global_stats": {
+          "mean_abs_delta": 0.28037959337234497,
+          "max_abs_delta": 7.317262649536133,
+          "mean_feature_auroc": 0.49384957551956177,
+          "max_feature_auroc": 0.6564993262290955
+        }
+      },
+      "probe_metrics": {
+        "accuracy": 0.7714,
+        "f1_score": 0.7720382927802154,
+        "auroc": 0.8545901962506746
+      }
+    }
+  },
+  "h1_concentration": {
+    "total_features": 1024,
+    "target_fraction": 0.8,
+    "features_needed": 109,
+    "fraction_of_features_needed": 0.1064453125,
+    "h1_threshold_pct": 5.0,
+    "h1_supported": false,
+    "concentration_curve": [
+      {
+        "n_features": 1,
+        "cumulative_signal_fraction": 0.06699779629707336
+      },
+      {
+        "n_features": 2,
+        "cumulative_signal_fraction": 0.13033069670200348
+      },
+      {
+        "n_features": 3,
+        "cumulative_signal_fraction": 0.17604687809944153
+      },
+      {
+        "n_features": 4,
+        "cumulative_signal_fraction": 0.2202419489622116
+      },
+      {
+        "n_features": 5,
+        "cumulative_signal_fraction": 0.26004859805107117
+      },
+      {
+        "n_features": 6,
+        "cumulative_signal_fraction": 0.28978389501571655
+      },
+      {
+        "n_features": 7,
+        "cumulative_signal_fraction": 0.31738269329071045
+      },
+      {
+        "n_features": 8,
+        "cumulative_signal_fraction": 0.34026652574539185
+      },
+      {
+        "n_features": 9,
+        "cumulative_signal_fraction": 0.36202582716941833
+      },
+      {
+        "n_features": 10,
+        "cumulative_signal_fraction": 0.38181158900260925
+      },
+      {
+        "n_features": 11,
+        "cumulative_signal_fraction": 0.4002946615219116
+      },
+      {
+        "n_features": 12,
+        "cumulative_signal_fraction": 0.4185977280139923
+      },
+      {
+        "n_features": 13,
+        "cumulative_signal_fraction": 0.43541988730430603
+      },
+      {
+        "n_features": 14,
+        "cumulative_signal_fraction": 0.44706660509109497
+      },
+      {
+        "n_features": 15,
+        "cumulative_signal_fraction": 0.45798105001449585
+      },
+      {
+        "n_features": 16,
+        "cumulative_signal_fraction": 0.4683116674423218
+      },
+      {
+        "n_features": 17,
+        "cumulative_signal_fraction": 0.47841548919677734
+      },
+      {
+        "n_features": 18,
+        "cumulative_signal_fraction": 0.4880382716655731
+      },
+      {
+        "n_features": 19,
+        "cumulative_signal_fraction": 0.4970925450325012
+      },
+      {
+        "n_features": 20,
+        "cumulative_signal_fraction": 0.5048152208328247
+      },
+      {
+        "n_features": 21,
+        "cumulative_signal_fraction": 0.5119938254356384
+      },
+      {
+        "n_features": 22,
+        "cumulative_signal_fraction": 0.518679678440094
+      },
+      {
+        "n_features": 23,
+        "cumulative_signal_fraction": 0.5253214836120605
+      },
+      {
+        "n_features": 24,
+        "cumulative_signal_fraction": 0.5312677025794983
+      },
+      {
+        "n_features": 25,
+        "cumulative_signal_fraction": 0.5371055603027344
+      },
+      {
+        "n_features": 26,
+        "cumulative_signal_fraction": 0.5425943732261658
+      },
+      {
+        "n_features": 27,
+        "cumulative_signal_fraction": 0.547890305519104
+      },
+      {
+        "n_features": 28,
+        "cumulative_signal_fraction": 0.5531443357467651
+      },
+      {
+        "n_features": 29,
+        "cumulative_signal_fraction": 0.5582879185676575
+      },
+      {
+        "n_features": 30,
+        "cumulative_signal_fraction": 0.5634005665779114
+      },
+      {
+        "n_features": 31,
+        "cumulative_signal_fraction": 0.5684396028518677
+      },
+      {
+        "n_features": 32,
+        "cumulative_signal_fraction": 0.5733797550201416
+      },
+      {
+        "n_features": 33,
+        "cumulative_signal_fraction": 0.5782203674316406
+      },
+      {
+        "n_features": 34,
+        "cumulative_signal_fraction": 0.5829082131385803
+      },
+      {
+        "n_features": 35,
+        "cumulative_signal_fraction": 0.5875042080879211
+      },
+      {
+        "n_features": 36,
+        "cumulative_signal_fraction": 0.5920290946960449
+      },
+      {
+        "n_features": 37,
+        "cumulative_signal_fraction": 0.596549391746521
+      },
+      {
+        "n_features": 38,
+        "cumulative_signal_fraction": 0.6010237336158752
+      },
+      {
+        "n_features": 39,
+        "cumulative_signal_fraction": 0.6053905487060547
+      },
+      {
+        "n_features": 40,
+        "cumulative_signal_fraction": 0.6097507476806641
+      },
+      {
+        "n_features": 41,
+        "cumulative_signal_fraction": 0.6140981316566467
+      },
+      {
+        "n_features": 42,
+        "cumulative_signal_fraction": 0.6183995604515076
+      },
+      {
+        "n_features": 43,
+        "cumulative_signal_fraction": 0.6226834058761597
+      },
+      {
+        "n_features": 44,
+        "cumulative_signal_fraction": 0.6269569396972656
+      },
+      {
+        "n_features": 45,
+        "cumulative_signal_fraction": 0.6311009526252747
+      },
+      {
+        "n_features": 46,
+        "cumulative_signal_fraction": 0.635066568851471
+      },
+      {
+        "n_features": 47,
+        "cumulative_signal_fraction": 0.6389405131340027
+      },
+      {
+        "n_features": 48,
+        "cumulative_signal_fraction": 0.6427006125450134
+      },
+      {
+        "n_features": 49,
+        "cumulative_signal_fraction": 0.6464213728904724
+      },
+      {
+        "n_features": 50,
+        "cumulative_signal_fraction": 0.6500709652900696
+      },
+      {
+        "n_features": 51,
+        "cumulative_signal_fraction": 0.6534603834152222
+      },
+      {
+        "n_features": 52,
+        "cumulative_signal_fraction": 0.6568315029144287
+      },
+      {
+        "n_features": 53,
+        "cumulative_signal_fraction": 0.6602011919021606
+      },
+      {
+        "n_features": 54,
+        "cumulative_signal_fraction": 0.6634847521781921
+      },
+      {
+        "n_features": 55,
+        "cumulative_signal_fraction": 0.6667506694793701
+      },
+      {
+        "n_features": 56,
+        "cumulative_signal_fraction": 0.6699618697166443
+      },
+      {
+        "n_features": 57,
+        "cumulative_signal_fraction": 0.6731395721435547
+      },
+      {
+        "n_features": 58,
+        "cumulative_signal_fraction": 0.676292896270752
+      },
+      {
+        "n_features": 59,
+        "cumulative_signal_fraction": 0.6794174909591675
+      },
+      {
+        "n_features": 60,
+        "cumulative_signal_fraction": 0.6825190782546997
+      },
+      {
+        "n_features": 61,
+        "cumulative_signal_fraction": 0.6856041550636292
+      },
+      {
+        "n_features": 62,
+        "cumulative_signal_fraction": 0.6886740326881409
+      },
+      {
+        "n_features": 63,
+        "cumulative_signal_fraction": 0.6917235255241394
+      },
+      {
+        "n_features": 64,
+        "cumulative_signal_fraction": 0.6947199106216431
+      },
+      {
+        "n_features": 65,
+        "cumulative_signal_fraction": 0.6977092027664185
+      },
+      {
+        "n_features": 66,
+        "cumulative_signal_fraction": 0.7006798982620239
+      },
+      {
+        "n_features": 67,
+        "cumulative_signal_fraction": 0.703622043132782
+      },
+      {
+        "n_features": 68,
+        "cumulative_signal_fraction": 0.7065557837486267
+      },
+      {
+        "n_features": 69,
+        "cumulative_signal_fraction": 0.7094025015830994
+      },
+      {
+        "n_features": 70,
+        "cumulative_signal_fraction": 0.7122426629066467
+      },
+      {
+        "n_features": 71,
+        "cumulative_signal_fraction": 0.7150397896766663
+      },
+      {
+        "n_features": 72,
+        "cumulative_signal_fraction": 0.7178303003311157
+      },
+      {
+        "n_features": 73,
+        "cumulative_signal_fraction": 0.7206129431724548
+      },
+      {
+        "n_features": 74,
+        "cumulative_signal_fraction": 0.7233799695968628
+      },
+      {
+        "n_features": 75,
+        "cumulative_signal_fraction": 0.7260777950286865
+      },
+      {
+        "n_features": 76,
+        "cumulative_signal_fraction": 0.7287542819976807
+      },
+      {
+        "n_features": 77,
+        "cumulative_signal_fraction": 0.7313632965087891
+      },
+      {
+        "n_features": 78,
+        "cumulative_signal_fraction": 0.7339683771133423
+      },
+      {
+        "n_features": 79,
+        "cumulative_signal_fraction": 0.7365513443946838
+      },
+      {
+        "n_features": 80,
+        "cumulative_signal_fraction": 0.7391102910041809
+      },
+      {
+        "n_features": 81,
+        "cumulative_signal_fraction": 0.7416607141494751
+      },
+      {
+        "n_features": 82,
+        "cumulative_signal_fraction": 0.7441796064376831
+      },
+      {
+        "n_features": 83,
+        "cumulative_signal_fraction": 0.7466911673545837
+      },
+      {
+        "n_features": 84,
+        "cumulative_signal_fraction": 0.7490497827529907
+      },
+      {
+        "n_features": 85,
+        "cumulative_signal_fraction": 0.7513998746871948
+      },
+      {
+        "n_features": 86,
+        "cumulative_signal_fraction": 0.7537457942962646
+      },
+      {
+        "n_features": 87,
+        "cumulative_signal_fraction": 0.7560387253761292
+      },
+      {
+        "n_features": 88,
+        "cumulative_signal_fraction": 0.7582954168319702
+      },
+      {
+        "n_features": 89,
+        "cumulative_signal_fraction": 0.7605512142181396
+      },
+      {
+        "n_features": 90,
+        "cumulative_signal_fraction": 0.7627906203269958
+      },
+      {
+        "n_features": 91,
+        "cumulative_signal_fraction": 0.7650229930877686
+      },
+      {
+        "n_features": 92,
+        "cumulative_signal_fraction": 0.7672553658485413
+      },
+      {
+        "n_features": 93,
+        "cumulative_signal_fraction": 0.7694410085678101
+      },
+      {
+        "n_features": 94,
+        "cumulative_signal_fraction": 0.7716158032417297
+      },
+      {
+        "n_features": 95,
+        "cumulative_signal_fraction": 0.7737857699394226
+      },
+      {
+        "n_features": 96,
+        "cumulative_signal_fraction": 0.7758786082267761
+      },
+      {
+        "n_features": 97,
+        "cumulative_signal_fraction": 0.7779432535171509
+      },
+      {
+        "n_features": 98,
+        "cumulative_signal_fraction": 0.7799975275993347
+      },
+      {
+        "n_features": 99,
+        "cumulative_signal_fraction": 0.7820019125938416
+      },
+      {
+        "n_features": 100,
+        "cumulative_signal_fraction": 0.7840011119842529
+      },
+      {
+        "n_features": 101,
+        "cumulative_signal_fraction": 0.7859949469566345
+      },
+      {
+        "n_features": 102,
+        "cumulative_signal_fraction": 0.7879371643066406
+      },
+      {
+        "n_features": 103,
+        "cumulative_signal_fraction": 0.7898761630058289
+      },
+      {
+        "n_features": 104,
+        "cumulative_signal_fraction": 0.7918123602867126
+      },
+      {
+        "n_features": 105,
+        "cumulative_signal_fraction": 0.7937166094779968
+      },
+      {
+        "n_features": 106,
+        "cumulative_signal_fraction": 0.7956081032752991
+      },
+      {
+        "n_features": 107,
+        "cumulative_signal_fraction": 0.7974869608879089
+      },
+      {
+        "n_features": 108,
+        "cumulative_signal_fraction": 0.7993372678756714
+      },
+      {
+        "n_features": 109,
+        "cumulative_signal_fraction": 0.8011527061462402
+      },
+      {
+        "n_features": 110,
+        "cumulative_signal_fraction": 0.8029489517211914
+      },
+      {
+        "n_features": 111,
+        "cumulative_signal_fraction": 0.8047351241111755
+      },
+      {
+        "n_features": 112,
+        "cumulative_signal_fraction": 0.8065109848976135
+      },
+      {
+        "n_features": 113,
+        "cumulative_signal_fraction": 0.808258056640625
+      },
+      {
+        "n_features": 114,
+        "cumulative_signal_fraction": 0.8099945783615112
+      },
+      {
+        "n_features": 115,
+        "cumulative_signal_fraction": 0.81170654296875
+      },
+      {
+        "n_features": 116,
+        "cumulative_signal_fraction": 0.8134179711341858
+      },
+      {
+        "n_features": 117,
+        "cumulative_signal_fraction": 0.8151096105575562
+      },
+      {
+        "n_features": 118,
+        "cumulative_signal_fraction": 0.8167656064033508
+      },
+      {
+        "n_features": 119,
+        "cumulative_signal_fraction": 0.818413496017456
+      },
+      {
+        "n_features": 120,
+        "cumulative_signal_fraction": 0.8200473785400391
+      },
+      {
+        "n_features": 121,
+        "cumulative_signal_fraction": 0.8216633200645447
+      },
+      {
+        "n_features": 122,
+        "cumulative_signal_fraction": 0.823270320892334
+      },
+      {
+        "n_features": 123,
+        "cumulative_signal_fraction": 0.8248576521873474
+      },
+      {
+        "n_features": 124,
+        "cumulative_signal_fraction": 0.8264381885528564
+      },
+      {
+        "n_features": 125,
+        "cumulative_signal_fraction": 0.8280120491981506
+      },
+      {
+        "n_features": 126,
+        "cumulative_signal_fraction": 0.8295734524726868
+      },
+      {
+        "n_features": 127,
+        "cumulative_signal_fraction": 0.8311309218406677
+      },
+      {
+        "n_features": 128,
+        "cumulative_signal_fraction": 0.8326857089996338
+      },
+      {
+        "n_features": 129,
+        "cumulative_signal_fraction": 0.8342363834381104
+      },
+      {
+        "n_features": 130,
+        "cumulative_signal_fraction": 0.8357800841331482
+      },
+      {
+        "n_features": 131,
+        "cumulative_signal_fraction": 0.8373144268989563
+      },
+      {
+        "n_features": 132,
+        "cumulative_signal_fraction": 0.8388292193412781
+      },
+      {
+        "n_features": 133,
+        "cumulative_signal_fraction": 0.8403260111808777
+      },
+      {
+        "n_features": 134,
+        "cumulative_signal_fraction": 0.8418088555335999
+      },
+      {
+        "n_features": 135,
+        "cumulative_signal_fraction": 0.8432899713516235
+      },
+      {
+        "n_features": 136,
+        "cumulative_signal_fraction": 0.8447681665420532
+      },
+      {
+        "n_features": 137,
+        "cumulative_signal_fraction": 0.8462340831756592
+      },
+      {
+        "n_features": 138,
+        "cumulative_signal_fraction": 0.8476729989051819
+      },
+      {
+        "n_features": 139,
+        "cumulative_signal_fraction": 0.8490628004074097
+      },
+      {
+        "n_features": 140,
+        "cumulative_signal_fraction": 0.8504425883293152
+      },
+      {
+        "n_features": 141,
+        "cumulative_signal_fraction": 0.8518078923225403
+      },
+      {
+        "n_features": 142,
+        "cumulative_signal_fraction": 0.8531478047370911
+      },
+      {
+        "n_features": 143,
+        "cumulative_signal_fraction": 0.8544869422912598
+      },
+      {
+        "n_features": 144,
+        "cumulative_signal_fraction": 0.8558225035667419
+      },
+      {
+        "n_features": 145,
+        "cumulative_signal_fraction": 0.8571556806564331
+      },
+      {
+        "n_features": 146,
+        "cumulative_signal_fraction": 0.8584880828857422
+      },
+      {
+        "n_features": 147,
+        "cumulative_signal_fraction": 0.8598129153251648
+      },
+      {
+        "n_features": 148,
+        "cumulative_signal_fraction": 0.8611364960670471
+      },
+      {
+        "n_features": 149,
+        "cumulative_signal_fraction": 0.8624572157859802
+      },
+      {
+        "n_features": 150,
+        "cumulative_signal_fraction": 0.8637731075286865
+      },
+      {
+        "n_features": 151,
+        "cumulative_signal_fraction": 0.8650831580162048
+      },
+      {
+        "n_features": 152,
+        "cumulative_signal_fraction": 0.866392970085144
+      },
+      {
+        "n_features": 153,
+        "cumulative_signal_fraction": 0.8677008748054504
+      },
+      {
+        "n_features": 154,
+        "cumulative_signal_fraction": 0.86900395154953
+      },
+      {
+        "n_features": 155,
+        "cumulative_signal_fraction": 0.8703064322471619
+      },
+      {
+        "n_features": 156,
+        "cumulative_signal_fraction": 0.8716041445732117
+      },
+      {
+        "n_features": 157,
+        "cumulative_signal_fraction": 0.8728998899459839
+      },
+      {
+        "n_features": 158,
+        "cumulative_signal_fraction": 0.8741951584815979
+      },
+      {
+        "n_features": 159,
+        "cumulative_signal_fraction": 0.8754815459251404
+      },
+      {
+        "n_features": 160,
+        "cumulative_signal_fraction": 0.8767654299736023
+      },
+      {
+        "n_features": 161,
+        "cumulative_signal_fraction": 0.8780154585838318
+      },
+      {
+        "n_features": 162,
+        "cumulative_signal_fraction": 0.8792650699615479
+      },
+      {
+        "n_features": 163,
+        "cumulative_signal_fraction": 0.8805139064788818
+      },
+      {
+        "n_features": 164,
+        "cumulative_signal_fraction": 0.8817605972290039
+      },
+      {
+        "n_features": 165,
+        "cumulative_signal_fraction": 0.8829985857009888
+      },
+      {
+        "n_features": 166,
+        "cumulative_signal_fraction": 0.8841874003410339
+      },
+      {
+        "n_features": 167,
+        "cumulative_signal_fraction": 0.8853757381439209
+      },
+      {
+        "n_features": 168,
+        "cumulative_signal_fraction": 0.8865547776222229
+      },
+      {
+        "n_features": 169,
+        "cumulative_signal_fraction": 0.8877190351486206
+      },
+      {
+        "n_features": 170,
+        "cumulative_signal_fraction": 0.8888528347015381
+      },
+      {
+        "n_features": 171,
+        "cumulative_signal_fraction": 0.8899864554405212
+      },
+      {
+        "n_features": 172,
+        "cumulative_signal_fraction": 0.891119122505188
+      },
+      {
+        "n_features": 173,
+        "cumulative_signal_fraction": 0.8922371864318848
+      },
+      {
+        "n_features": 174,
+        "cumulative_signal_fraction": 0.8933542966842651
+      },
+      {
+        "n_features": 175,
+        "cumulative_signal_fraction": 0.8944680690765381
+      },
+      {
+        "n_features": 176,
+        "cumulative_signal_fraction": 0.8955608606338501
+      },
+      {
+        "n_features": 177,
+        "cumulative_signal_fraction": 0.8966337442398071
+      },
+      {
+        "n_features": 178,
+        "cumulative_signal_fraction": 0.8976980447769165
+      },
+      {
+        "n_features": 179,
+        "cumulative_signal_fraction": 0.8987582325935364
+      },
+      {
+        "n_features": 180,
+        "cumulative_signal_fraction": 0.8998017311096191
+      },
+      {
+        "n_features": 181,
+        "cumulative_signal_fraction": 0.9008265137672424
+      },
+      {
+        "n_features": 182,
+        "cumulative_signal_fraction": 0.9018428921699524
+      },
+      {
+        "n_features": 183,
+        "cumulative_signal_fraction": 0.9028574228286743
+      },
+      {
+        "n_features": 184,
+        "cumulative_signal_fraction": 0.9038636088371277
+      },
+      {
+        "n_features": 185,
+        "cumulative_signal_fraction": 0.90486741065979
+      },
+      {
+        "n_features": 186,
+        "cumulative_signal_fraction": 0.9058670401573181
+      },
+      {
+        "n_features": 187,
+        "cumulative_signal_fraction": 0.906859278678894
+      },
+      {
+        "n_features": 188,
+        "cumulative_signal_fraction": 0.9078509211540222
+      },
+      {
+        "n_features": 189,
+        "cumulative_signal_fraction": 0.9088404774665833
+      },
+      {
+        "n_features": 190,
+        "cumulative_signal_fraction": 0.9098235964775085
+      },
+      {
+        "n_features": 191,
+        "cumulative_signal_fraction": 0.9108028411865234
+      },
+      {
+        "n_features": 192,
+        "cumulative_signal_fraction": 0.9117621779441833
+      },
+      {
+        "n_features": 193,
+        "cumulative_signal_fraction": 0.9127178192138672
+      },
+      {
+        "n_features": 194,
+        "cumulative_signal_fraction": 0.9136663675308228
+      },
+      {
+        "n_features": 195,
+        "cumulative_signal_fraction": 0.9146078824996948
+      },
+      {
+        "n_features": 196,
+        "cumulative_signal_fraction": 0.9155488014221191
+      },
+      {
+        "n_features": 197,
+        "cumulative_signal_fraction": 0.9164830446243286
+      },
+      {
+        "n_features": 198,
+        "cumulative_signal_fraction": 0.9174132347106934
+      },
+      {
+        "n_features": 199,
+        "cumulative_signal_fraction": 0.9183417558670044
+      },
+      {
+        "n_features": 200,
+        "cumulative_signal_fraction": 0.9192549586296082
+      },
+      {
+        "n_features": 208,
+        "cumulative_signal_fraction": 0.9262109398841858
+      },
+      {
+        "n_features": 216,
+        "cumulative_signal_fraction": 0.9325371384620667
+      },
+      {
+        "n_features": 224,
+        "cumulative_signal_fraction": 0.9384223222732544
+      },
+      {
+        "n_features": 233,
+        "cumulative_signal_fraction": 0.944740891456604
+      },
+      {
+        "n_features": 241,
+        "cumulative_signal_fraction": 0.9500743746757507
+      },
+      {
+        "n_features": 249,
+        "cumulative_signal_fraction": 0.9552021026611328
+      },
+      {
+        "n_features": 258,
+        "cumulative_signal_fraction": 0.9605349898338318
+      },
+      {
+        "n_features": 266,
+        "cumulative_signal_fraction": 0.9648074507713318
+      },
+      {
+        "n_features": 274,
+        "cumulative_signal_fraction": 0.9688618779182434
+      },
+      {
+        "n_features": 283,
+        "cumulative_signal_fraction": 0.9730278253555298
+      },
+      {
+        "n_features": 291,
+        "cumulative_signal_fraction": 0.9765006303787231
+      },
+      {
+        "n_features": 299,
+        "cumulative_signal_fraction": 0.9796642065048218
+      },
+      {
+        "n_features": 308,
+        "cumulative_signal_fraction": 0.9828877449035645
+      },
+      {
+        "n_features": 316,
+        "cumulative_signal_fraction": 0.98552405834198
+      },
+      {
+        "n_features": 324,
+        "cumulative_signal_fraction": 0.9878771305084229
+      },
+      {
+        "n_features": 333,
+        "cumulative_signal_fraction": 0.9902881383895874
+      },
+      {
+        "n_features": 341,
+        "cumulative_signal_fraction": 0.9921584129333496
+      },
+      {
+        "n_features": 349,
+        "cumulative_signal_fraction": 0.9937308430671692
+      },
+      {
+        "n_features": 358,
+        "cumulative_signal_fraction": 0.9953278303146362
+      },
+      {
+        "n_features": 366,
+        "cumulative_signal_fraction": 0.9964919090270996
+      },
+      {
+        "n_features": 374,
+        "cumulative_signal_fraction": 0.9974901080131531
+      },
+      {
+        "n_features": 383,
+        "cumulative_signal_fraction": 0.9983152151107788
+      },
+      {
+        "n_features": 391,
+        "cumulative_signal_fraction": 0.9989274740219116
+      },
+      {
+        "n_features": 399,
+        "cumulative_signal_fraction": 0.9993913769721985
+      },
+      {
+        "n_features": 408,
+        "cumulative_signal_fraction": 0.9997411966323853
+      },
+      {
+        "n_features": 416,
+        "cumulative_signal_fraction": 0.9999419450759888
+      },
+      {
+        "n_features": 424,
+        "cumulative_signal_fraction": 0.9999887943267822
+      },
+      {
+        "n_features": 433,
+        "cumulative_signal_fraction": 0.9999911785125732
+      },
+      {
+        "n_features": 441,
+        "cumulative_signal_fraction": 0.9999924898147583
+      },
+      {
+        "n_features": 449,
+        "cumulative_signal_fraction": 0.9999936819076538
+      },
+      {
+        "n_features": 458,
+        "cumulative_signal_fraction": 0.9999944567680359
+      },
+      {
+        "n_features": 466,
+        "cumulative_signal_fraction": 0.9999951124191284
+      },
+      {
+        "n_features": 474,
+        "cumulative_signal_fraction": 0.999995768070221
+      },
+      {
+        "n_features": 482,
+        "cumulative_signal_fraction": 0.9999964833259583
+      },
+      {
+        "n_features": 491,
+        "cumulative_signal_fraction": 0.9999971985816956
+      },
+      {
+        "n_features": 499,
+        "cumulative_signal_fraction": 0.9999979138374329
+      },
+      {
+        "n_features": 507,
+        "cumulative_signal_fraction": 0.9999985694885254
+      },
+      {
+        "n_features": 516,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 524,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 532,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 541,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 549,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 557,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 566,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 574,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 582,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 591,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 599,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 607,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 616,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 624,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 632,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 641,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 649,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 657,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 666,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 674,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 682,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 691,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 699,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 707,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 716,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 724,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 732,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 741,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 749,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 757,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 765,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 774,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 782,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 790,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 799,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 807,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 815,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 824,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 832,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 840,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 849,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 857,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 865,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 874,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 882,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 890,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 899,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 907,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 915,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 924,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 932,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 940,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 949,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 957,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 965,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 974,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 982,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 990,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 999,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 1007,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 1015,
+        "cumulative_signal_fraction": 0.9999987483024597
+      },
+      {
+        "n_features": 1024,
+        "cumulative_signal_fraction": 0.9999987483024597
+      }
+    ]
+  },
+  "h3_sparse_vs_dense": {
+    "mean_pool": {
+      "m_sweep": [
+        {
+          "m": 10,
+          "sparse_auroc": 0.6686251172254205,
+          "sparse_accuracy": 0.6214,
+          "sparse_f1": 0.6178073894609327,
+          "dense_auroc_mean": 0.6682895337080387,
+          "dense_auroc_std": 0.01796533775033645,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 20,
+          "sparse_auroc": 0.7042925664882744,
+          "sparse_accuracy": 0.6443,
+          "sparse_f1": 0.6407433592566407,
+          "dense_auroc_mean": 0.6921678298404519,
+          "dense_auroc_std": 0.015585826086367697,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 50,
+          "sparse_auroc": 0.7905527151575489,
+          "sparse_accuracy": 0.7147,
+          "sparse_f1": 0.713179853222077,
+          "dense_auroc_mean": 0.7499999119959307,
+          "dense_auroc_std": 0.006182014674656614,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 100,
+          "sparse_auroc": 0.8167887283107971,
+          "sparse_accuracy": 0.736,
+          "sparse_f1": 0.7330637007077856,
+          "dense_auroc_mean": 0.7950829326348051,
+          "dense_auroc_std": 0.004809052417031248,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 200,
+          "sparse_auroc": 0.8418650878416618,
+          "sparse_accuracy": 0.758,
+          "sparse_f1": 0.755654281098546,
+          "dense_auroc_mean": 0.8240130543636338,
+          "dense_auroc_std": 0.0024905743042695576,
+          "sparse_beats_dense": true
+        }
+      ]
+    },
+    "max_pool": {
+      "m_sweep": [
+        {
+          "m": 10,
+          "sparse_auroc": 0.7163338032750634,
+          "sparse_accuracy": 0.656,
+          "sparse_f1": 0.6508323183110029,
+          "dense_auroc_mean": 0.6322213219139254,
+          "dense_auroc_std": 0.006321744338930506,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 20,
+          "sparse_auroc": 0.7290467911236216,
+          "sparse_accuracy": 0.6667,
+          "sparse_f1": 0.6635712122741496,
+          "dense_auroc_mean": 0.6615418776964247,
+          "dense_auroc_std": 0.008471741497510591,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 50,
+          "sparse_auroc": 0.7804696089147163,
+          "sparse_accuracy": 0.7068,
+          "sparse_f1": 0.7044354838709678,
+          "dense_auroc_mean": 0.7146432611043935,
+          "dense_auroc_std": 0.0038866746382809577,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 100,
+          "sparse_auroc": 0.8095994758797647,
+          "sparse_accuracy": 0.7299,
+          "sparse_f1": 0.7285154286863001,
+          "dense_auroc_mean": 0.7491712256774754,
+          "dense_auroc_std": 0.006722765705141761,
+          "sparse_beats_dense": true
+        },
+        {
+          "m": 200,
+          "sparse_auroc": 0.8378212608551019,
+          "sparse_accuracy": 0.7559,
+          "sparse_f1": 0.7560219890054972,
+          "dense_auroc_mean": 0.7868467757949127,
+          "dense_auroc_std": 0.004198259470994158,
+          "sparse_beats_dense": true
+        }
+      ]
+    }
+  }
+}

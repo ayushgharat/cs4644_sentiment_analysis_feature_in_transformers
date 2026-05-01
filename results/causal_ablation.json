@@ -1,0 +1,60 @@
+{
+  "analysis": "H2 causal ablation",
+  "transformer_checkpoint": "checkpoints/transformer_best.pt",
+  "sae_checkpoint": "checkpoints/sae_best.pt",
+  "layer_idx": 3,
+  "n_ablation_samples": 1000,
+  "n_random_trials": 10,
+  "n_pos_sentiment_tokens": 12,
+  "n_neg_sentiment_tokens": 10,
+  "k_results": [
+    {
+      "k": 5,
+      "n_samples": 1000,
+      "targeted_delta_mean": -0.06206438688933849,
+      "targeted_delta_std": 0.06500351075768611,
+      "random_delta_mean": 1.5052071574609728e-05,
+      "random_delta_std": 0.004731762867816765,
+      "difference_mean": -0.06207943896091311,
+      "t_statistic": -30.145341792357264,
+      "p_value": 8.414437540582563e-143,
+      "h2_supported": true
+    },
+    {
+      "k": 10,
+      "n_samples": 1000,
+      "targeted_delta_mean": -0.05879002490919084,
+      "targeted_delta_std": 0.08315053412017799,
+      "random_delta_mean": 0.00011676745582371952,
+      "random_delta_std": 0.006780959725071249,
+      "difference_mean": -0.05890679236501455,
+      "t_statistic": -22.3505035626698,
+      "p_value": 2.3692084204298415e-90,
+      "h2_supported": true
+    },
+    {
+      "k": 20,
+      "n_samples": 1000,
+      "targeted_delta_mean": -0.029032811230048538,
+      "targeted_delta_std": 0.10540150975102093,
+      "random_delta_mean": -0.00015593977354001255,
+      "random_delta_std": 0.009176264902057737,
+      "difference_mean": -0.028876871456508524,
+      "t_statistic": -8.667082350123382,
+      "p_value": 8.820796652113718e-18,
+      "h2_supported": true
+    },
+    {
+      "k": 50,
+      "n_samples": 1000,
+      "targeted_delta_mean": -0.05106606115680188,
+      "targeted_delta_std": 0.10478520917610662,
+      "random_delta_mean": 0.0003456052761059255,
+      "random_delta_std": 0.015043048947041886,
+      "difference_mean": -0.05141166643290781,
+      "t_statistic": -15.48282864880813,
+      "p_value": 6.296384489175791e-49,
+      "h2_supported": true
+    }
+  ]
+}
